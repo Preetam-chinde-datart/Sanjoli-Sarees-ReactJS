@@ -1,0 +1,98 @@
+.shop a{
+    text-decoration: none;
+    color: initial;
+}
+.shop a:hover{
+    color: initial;
+}
+.shop .category ul{
+    list-style: none;
+    padding-left: 0.6rem;
+}
+
+
+
+/* Filters */
+.filters a{
+    cursor: pointer !important;
+}
+
+/* Poducts from shop  */
+.shop-products .all-products{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, auto));
+    padding: 20px;
+}
+.shop-products .all-products .product-card {
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 1rem 0.7rem;
+}
+.shop-products .all-products .product-info{
+    height: auto;
+    padding-top: 5px;
+}
+
+/* Pagination  */
+.shop-products li.page-item:not(:first-child) {
+    text-align: center;
+}
+.shop-products li.page-item:last-child{
+    text-align: right;
+}
+.shop-products li.page-item{
+    width: 100%;
+}
+.shop-products a.page-link {
+    border: 0;
+    cursor: initial;
+    --bs-pagination-focus-box-shadow: white;
+    --bs-pagination-focus-bg: white;
+}
+.pagination a:hover {
+    background-color: white;
+}
+.shop-products .pagination {
+    border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color)!important;
+    border-radius: 5px;
+}
+.active>.page-link, .page-link.active {
+    background-color: initial !important;
+    --bs-pagination-focus-color: white !important;
+    --bs-pagination-focus-box-shadow: initial !important;
+}
+.pagination .active .page-link span{
+    color: var(--green);;
+    border: 1px solid var(--green);
+    border-radius: 6px;
+}
+.pagination .page-link span{
+    padding: 5px 15px;
+    background-color: white;
+    
+}
+.pagination span {
+    cursor: pointer;
+}
+.pagination .page-link{
+    padding : 10px 0;
+}
+.all-products h4, .related-product h4, .latest-product h4 {
+    font-size: 18px !important;
+}
+
+
+
+
+/* Media Query  */
+@media screen and (max-width : 480px) {
+    .shop-products .product-image{
+        height: 185px;
+    }
+    .shop-products .all-products {
+        grid-template-columns: repeat(auto-fit, minmax(140px, auto));
+        padding: 0;
+    }
+}
+

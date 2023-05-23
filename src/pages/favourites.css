@@ -1,0 +1,23 @@
+.favourite a{
+    text-decoration: none;
+    color: initial;
+}
+.fav-container{
+    border: 1px solid var(--gray);
+    background-color: rgba(249, 250, 251, .5);
+    /* border-radius: 5px; */
+}
+.favourite a:hover{
+    color: initial;
+}
+.favourite .products .fav-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, auto));
+    padding: 20px;
+}
+.favourite .product-card {
+    margin-right: 0px;
+    margin-bottom: 2rem!important;
+    padding: 0 0.5rem !important;
+}
+

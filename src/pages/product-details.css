@@ -1,0 +1,81 @@
+/* -------------------- Product Details -------------------- */
+.product-details svg {
+    vertical-align: -0.15em !important;
+}
+p.small-text {
+    font-size: .7rem;
+}
+.product-details hr{
+    margin: 0.5rem 0;
+    opacity: 0.15;
+}
+.product-description h4, .product-description p{
+    margin: 0;
+}
+.product-description ul {
+    padding-left: 1rem;
+}
+.product-details .image-option {
+    padding: 5px 30px;
+}
+.product-details .main-img-container {
+    width: 55%;
+}
+.main-img-container .main-img {
+    background: var(--gray);
+}
+.product-details .sub-products {
+    padding-left: 5.5rem;
+}
+.product-review svg{
+    fill: var(--green);
+}
+
+
+/* -------------------- Review and Return Policy -------------------- */
+.return-policy hr{
+    margin: 0.5rem 0 0 0;
+    opacity: 0.15;
+}
+.return-policy .active{
+    border-top: 2px solid var(--green);
+    color: var(--green);
+}
+.return-policy ul {
+    padding-left: 1rem;
+}
+.review .small-text {
+    margin-bottom: 0;
+}
+.review .stars{
+    margin-bottom: 0.5rem;
+}
+.review .profile-img {
+    padding-left: 30px;
+    margin-top: 10px;
+}
+.review-section svg {
+    fill: transparent;
+    stroke-width: 35px;
+    stroke: var(--green);
+    margin-right: 3px;
+}
+.review-section svg.filled {
+    fill: green;
+    stroke-width: 0;
+    stroke: var(--green);
+    margin-right: 3px;
+}
+
+
+/* -------------------- Related Products -------------------- */
+
+
+
+/* -------------------- Media Query -------------------- */
+@media screen and (max-width: 480px){
+    
+}
+@media screen and (max-width: 768px) {
+
+}

@@ -1,0 +1,12 @@
+.quickview-product .main-img-container{
+    width: 80%;
+}
+.quickview-product .sub-products img{
+    padding-bottom: 10px;
+}
+.text-tax {
+    color: #868681 !important;
+}
+.modal{
+    --bs-modal-width: 750px !important;
+}
