@@ -207,13 +207,7 @@ hr{
 .pro:hover{
     color: #519D42;
 }
-a.backlink{
-    color: var(--dark-gray);
-    text-decoration: none;
-}
-a.backlink:hover{
-    color: var(--dark-gray);
-}
+
 
 
 
@@ -223,4 +217,7 @@ a.backlink:hover{
 
 .pesonal-info .profile-img img{
     border-radius: 50%;
+}
+.address-info .container.d-flex{
+    flex-wrap: wrap;
 }

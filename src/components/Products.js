@@ -10,7 +10,7 @@ export default function Products({prodCat}){
 
     // Products 
     const [products , setProducts] = useState([])
-    const url = `https://server-dot-sanjoli-sarees-testenvironment.el.r.appspot.com/getproduct/?${prodCat}`
+    const url = `${process.env.REACT_APP_TEST_LINK}/getproduct/?${prodCat}`
     
     useEffect(()=>{
         axios.get(url)

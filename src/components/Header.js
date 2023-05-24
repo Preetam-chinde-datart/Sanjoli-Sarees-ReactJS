@@ -32,7 +32,7 @@ export default function Header(){
                         {/* <span className="position-absolute start-60 translate-items badge bg-color bag-user">2</span> */}
                         <span className="favourites"> Favourites</span>
                     </a>
-                    <a href='/' className="btn position-relative" id='bag'>
+                    <a href='/bag' className="btn position-relative" id='bag'>
                         <Bag />
                         <span className="position-absolute start-60 translate-items badge bg-color bag-user">2</span>
                         <span className="bag ps-md-2"> Bag</span>

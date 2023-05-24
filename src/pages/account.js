@@ -1,22 +1,36 @@
-import logo from "../images/logo.png";
-import './profile-page.css'
+import './account.css'
 import { MdOutlineLogout, MdEdit } from "react-icons/md";
 import { RxPerson } from 'react-icons/rx'
 import {FiPlus} from "react-icons/fi";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
 import {Bag} from 'react-bootstrap-icons'
 
 function Profile() {
-  //Set user 
-  const [user, setUser] = useState(null);
+  
+  function userReducer(state, action){
+    switch(action.type){
+      case 'load':
+        return action.payload
+      case 'updateProfile' :
+        return state
+      case 'updatePassword' :
+        return state
+      case 'updateProfileImage':
+        return state
+      default:
+        return state
+    }
+  }
+  
+  //Set user
+  // const [user, setUser] = useState(null);
+  const [user, dispatch] = useReducer(userReducer, null)
 
-  const url = 'https://server-dot-sanjoli-sarees-testenvironment.el.r.appspot.com/';  //process.env.REACT_APP_PRODUCTION_LINK
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODQ4MTM4NDEsImV4cCI6MTY4NDg1NzA0MX0.uop1Pf0YTBi1ha8eetF03VQ3QTq80owEojd5iTIaQFY';
+  const url = process.env.REACT_APP_TEST_LINK;  
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODQ4OTk4NTIsImV4cCI6MTY4NDk0MzA1Mn0.S4MVw-MxEjp3pfqSw1ET0j-Gc6Tpm0yrsNqQ1qSfVBM';
   const userId = '646b52a75bba83d29383a25a'
   
-
-
   const authAxios = axios.create({
     baseURL : url,
     headers : {
@@ -26,9 +40,8 @@ function Profile() {
 
   useEffect(() => {
     authAxios.get(`/getUser/${userId}`)
-
       .then(res => {
-        setUser(res.data.data);
+        dispatch({type : 'load', payload : res.data.data})
         console.log(res.data.data);
       })
       .catch(error => {
@@ -37,22 +50,20 @@ function Profile() {
   }, []);
 
 
-
-
+  // console.log(user.addresses)
 
   return (
     <>
-      {
-        user
-        ?
-        <section className="account-section">
+      <section className="account-section">
         <div className='container mt-3'>
           <a href='/' className='backlink'>&lt; Back</a>
           <div className='page-heading mb-3 pb-3'>
-            <h2>Contact Us</h2>
+            <h2>My profile</h2>
           </div>
         </div>
-
+      {
+        user
+        ?
         <div className="container d-md-flex ">
           <div className="left-div">
             {/* vertical navigation */}
@@ -184,7 +195,28 @@ function Profile() {
               </div>
               <hr />
               <div className="container d-flex">
-                <div className="col-md-4 px-2">
+                {
+                  user.addresses.map((data, i)=>{
+                    return(
+                      <>
+                        <div className="col-md-4 px-2">
+                          <div className="address-container">
+                            <h5>David Martin</h5>
+                            <p>
+                              {data}
+                            </p>
+                            <p>No: 98xxxxx430</p>
+                            <a href="#edit">Edit |</a>
+                            <a href="#remove"> Remove </a>
+                            {/* <a href="#set-default"> Set As Default</a> */}
+                          </div>
+                        </div>
+                      </>
+                    )
+                  })
+                }
+                
+                {/* <div className="col-md-4 px-2">
                   <div className="address-container">
                     <h5>David Martin</h5>
                     <p>
@@ -193,9 +225,8 @@ function Profile() {
                     </p>
                     <p>No: 98xxxxx430</p>
                     <a href="#edit">Edit |</a>
-                    <a href="#remove">Remove |</a>
-                    <a href="#set-default">Set As Default</a>
-                    {/* <p> {user.addresses}</p> */}
+                    <a href="#remove"> Remove |</a>
+                    <a href="#set-default"> Set As Default</a>
                   </div>
                 </div>
                 <div className="col-md-4 px-2">
@@ -207,38 +238,25 @@ function Profile() {
                     </p>
                     <p>No: 98xxxxx430</p>
                     <a href="#edit">Edit |</a>
-                    <a href="#remove">Remove |</a>
-                    <a href="#set-default">Set As Default</a>
+                    <a href="#remove"> Remove |</a>
+                    <a href="#set-default"> Set As Default</a>
                   </div>
-                </div>
-                <div className="col-md-4 px-2">
-                  <div className="address-container">
-                    <h5>David Martin</h5>
-                    <p>
-                      203, Building name,Street address, Area,City/Town, State -
-                      Pincode
-                    </p>
-                    <p>No: 98xxxxx430</p>
-                    <a href="#edit">Edit |</a>
-                    <a href="#remove">Remove |</a>
-                    <a href="#set-default">Set As Default</a>
-                  </div>
-                </div>
-              </div>
-              {/* 2 */}
-              <div className="container d-flex">
+                </div> */}
                 <div className="col-md-4 px-2 py-3">
                   <div className="address-container text-center">
                     <a href="#hreh">
-                      {" "}
                       <FiPlus></FiPlus>
                     </a>
                     <h4 className="text-grey">Add New Address</h4>
                   </div>
                 </div>
-                <div className="col-md-4 px-2" />
-                <div className="col-md-4 px-2" />
               </div>
+              {/* 2 */}
+              {/* <div className="container d-flex">
+                
+                <div className="col-md-4 px-2" />
+                <div className="col-md-4 px-2" />
+              </div> */}
             </div>
             <div className="password-info">
               <div className="container">
@@ -299,10 +317,11 @@ function Profile() {
             </div>
           </div>
         </div>
-      </section>
+      
       :
       <></>
       }
+      </section>
     </>
   );
 }

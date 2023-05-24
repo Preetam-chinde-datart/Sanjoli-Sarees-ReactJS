@@ -8,9 +8,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Favourites from './pages/favourites'
-import Account from './pages/profile-page'
+import Account from './pages/account'
+import Bag from './pages/bag'
+
 
 function App() {
+
   return (
     <>
     <BrowserRouter>
@@ -24,6 +27,7 @@ function App() {
         <Route path='/favourites' element={<Favourites />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/account' element={<Account />} />
+        <Route path='/bag' element={<Bag />} />
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -602,3 +602,13 @@ h4.product-brand {
 }
 
 /* ---------------------------------------- End of Home Page ---------------------------------------- */
+
+
+
+a.backlink{
+    color: var(--dark-gray);
+    text-decoration: none;
+}
+a.backlink:hover{
+    color: var(--dark-gray);
+}
