@@ -20,4 +20,7 @@
     margin-bottom: 2rem!important;
     padding: 0 0.5rem !important;
 }
+.favourite .card-btn svg{
+    fill: red !important;
+}
 

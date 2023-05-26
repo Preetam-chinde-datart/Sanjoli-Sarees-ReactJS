@@ -1,0 +1,60 @@
+.in-bag .product{
+    border: 1px solid var(--gray);
+}
+.bags .quantity-price{
+    text-align: end;
+    position: relative;
+}
+.bags .prod-total-price{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+.bags .total-price .summary{
+    background-color: var(--gray);
+    border-radius: 3px;
+    height: 100%;
+    position: relative;
+}
+.final-bill{
+    position: absolute;
+    width: 91%;
+    bottom: 1rem;
+}
+.bags .final-bill button.btn.btn-primary {
+    width: 100%;
+}
+
+
+/* Scrool Bar  */
+.bags .product {
+    height: 44rem;
+    overflow: auto;
+}
+/* width */
+.bags .product .row::-webkit-scrollbar {
+    width: 110px;
+}
+
+/* Track */
+.bags .product .row::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+.bags .product .row::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+.bags .product .row::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+
+
+
+
+
+
+

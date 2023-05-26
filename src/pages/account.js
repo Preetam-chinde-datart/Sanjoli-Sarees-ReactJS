@@ -5,6 +5,7 @@ import {FiPlus} from "react-icons/fi";
 import React, { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
 import {Bag} from 'react-bootstrap-icons'
+import { AddNewAddress } from '../components/AddNewAddress'
 
 function Profile() {
   
@@ -28,7 +29,7 @@ function Profile() {
   const [user, dispatch] = useReducer(userReducer, null)
 
   const url = process.env.REACT_APP_TEST_LINK;  
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODQ4OTk4NTIsImV4cCI6MTY4NDk0MzA1Mn0.S4MVw-MxEjp3pfqSw1ET0j-Gc6Tpm0yrsNqQ1qSfVBM';
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUwNzI1NzEsImV4cCI6MTY4NTExNTc3MX0.0-zEBj59oz5qyKIJBpiAIKCPV4z-USNQAtyRermoFFc';
   const userId = '646b52a75bba83d29383a25a'
   
   const authAxios = axios.create({
@@ -49,8 +50,14 @@ function Profile() {
       });
   }, []);
 
+  // addAddress
+  const [newAddress, setNewAddress] = useState(null)
 
-  // console.log(user.addresses)
+  function addAddress(){
+
+  }
+
+
 
   return (
     <>
@@ -113,7 +120,7 @@ function Profile() {
                     <div className="container">
                       <div className="col-md-3">
                       <div className="profile-img">
-                        <img src={user.imagesUrl[0]} alt="" width='100%' height='150'/>
+                        <img src={user.imagesUrl} alt="" width='100%' height='150'/>
                         <div className="edit-img1 edit-profile">
                         <button><MdEdit /></button>
                         </div>
@@ -201,11 +208,10 @@ function Profile() {
                       <>
                         <div className="col-md-4 px-2">
                           <div className="address-container">
-                            <h5>David Martin</h5>
-                            <p>
-                              {data}
-                            </p>
-                            <p>No: 98xxxxx430</p>
+                            <h5>{data.firstName} {data.lastName}</h5>
+                            <p className='text-capitalize'>{data.street}, {data.city}, {data.pincode}.<br /> 
+                            State: {data.state}, <br/> Country: {data.country} </p>
+                            <p>Phone: {data.contactNumber}</p>
                             <a href="#edit">Edit |</a>
                             <a href="#remove"> Remove </a>
                             {/* <a href="#set-default"> Set As Default</a> */}
@@ -216,38 +222,12 @@ function Profile() {
                   })
                 }
                 
-                {/* <div className="col-md-4 px-2">
-                  <div className="address-container">
-                    <h5>David Martin</h5>
-                    <p>
-                      203, Building name,Street address, Area,City/Town, State -
-                      Pincode
-                    </p>
-                    <p>No: 98xxxxx430</p>
-                    <a href="#edit">Edit |</a>
-                    <a href="#remove"> Remove |</a>
-                    <a href="#set-default"> Set As Default</a>
-                  </div>
-                </div>
-                <div className="col-md-4 px-2">
-                  <div className="address-container">
-                    <h5>David Martin</h5>
-                    <p>
-                      203, Building name,Street address, Area,City/Town, State -
-                      Pincode
-                    </p>
-                    <p>No: 98xxxxx430</p>
-                    <a href="#edit">Edit |</a>
-                    <a href="#remove"> Remove |</a>
-                    <a href="#set-default"> Set As Default</a>
-                  </div>
-                </div> */}
                 <div className="col-md-4 px-2 py-3">
                   <div className="address-container text-center">
-                    <a href="#hreh">
-                      <FiPlus></FiPlus>
-                    </a>
-                    <h4 className="text-grey">Add New Address</h4>
+                  <button type="button" className=" quick-view" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onClick={(e)=>addAddress()}>
+                    <FiPlus /> <br /> Add New Address
+                  </button>
+                      
                   </div>
                 </div>
               </div>
@@ -316,14 +296,40 @@ function Profile() {
               </div>
             </div>
           </div>
+
+
+
+          {/* Model newAddress */}
+          <div className="modal fade" id="exampleModal" tabIndex={-1}  aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <div className='fs-2 fw-bold'></div>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  />
+                </div>
+                <div className="modal-body">
+                  <AddNewAddress />
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
         </div>
-      
       :
       <></>
       }
       </section>
     </>
   );
+
+  
 }
 
 export default Profile;

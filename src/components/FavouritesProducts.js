@@ -1,15 +1,11 @@
 import { useState } from 'react'
-import { SuitHeart } from 'react-bootstrap-icons'
+import { BsSuitHeartFill } from 'react-icons/bs'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import QuickViewProduct from './QuickviewProduct'
 import axios from 'axios';
 
 
-export default function ShopProducts({product, fav}){
-    
-
-    // Sort by 
-    const [sortBy, setSortBy] = useState([]);
+export default function FavouriteProducts({product}){
 
     // Quickview 
     const [fullProduct, setFullProduct] = useState([])
@@ -39,35 +35,15 @@ export default function ShopProducts({product, fav}){
 
    
 
-    
+    // Quickview 
     function viewQuick(prod){
         setFullProduct(prod)
     }
 
-    // Sorting
-    function SortItNow(e){
-        const sarees = document.getElementById("sarees").value;
-        if(sarees === 'price-low-high'){
-            setSortBy(sortBy.sort((a,b)=> a.price - b.price))
-            console.log('sort changing');
-        }
-        if(sarees === 'price-high-low'){
-            setSortBy(sortBy.sort((a,b)=> b.price - a.price))
-            console.log('sort changing');
-        }
-        if(sarees === 'name-a-z'){
-            setSortBy(sortBy.sort((a, b) => (a.productName > b.productName) ? 1: -1))
-            console.log('sort changing');
-        }
-        if(sarees === 'name-z-a'){
-            setSortBy(sortBy.sort((a, b) => (a.productName < b.productName) ? 1: -1))
-            console.log('sort changing');
-        }
-    }
 
     // Add to bag
     const addToBag = async (data) => {
-        console.log(data._id);
+        // console.log(data._id);
         try {
             const response = await authAxios.post(`/addCart/${userId}`, `productId=${data._id}`)
             // console.log(response);
@@ -78,71 +54,61 @@ export default function ShopProducts({product, fav}){
             console.log(error.response.data.message);
         }
     }
+
+    // Remove from favourites 
+    const removeFromFavourite = async (data) => {
+        console.log('data id ',data._id);
+        try {
+            const response = await authAxios.delete(`/removeFavorite/${userId}`, {productId : data._id})
+            console.log('fav response',response);
+            alert('Product removed from Favourites successfully')
+            
+        } catch (error) {
+            // alert('Favourites removal error')
+            console.log(error.response);
+        }
+    }
     
     
     
     return(
         <>
-            {
-                fav === 0 ?
-                <></>
-                :
-                <div className="sorting d-flex justify-content-between">
-                    <div className="showing-result">
-                        Showing {records.length} product(s) out of {product.length} products
-                    </div>
-                    <div className="sort">
-                        <form>
-                        <label htmlFor='sortby'>Sort by&nbsp;</label>
-                        <select name="sarees" id="sarees" onClick={SortItNow}>
-                            {/* <option value="selected" selected>Select Sort</option> */}
-                            <option value="price-low-high">Price (Low to High)</option>
-                            <option value="price-high-low">Price (High to Low)</option>
-                            <option value="name-a-z">Name (A to Z)</option>
-                            <option value="name-z-a">Name (Z to A)</option>
-                        </select>
-                        <br />
-                        {/* <input type="submit" value="Submit" /> */}
-                        </form>
-                    </div>
-                </div>
-            }
 
             <div className='all-products border rounded'>
                 
                 {
                     records.map((a , i)=>{
-                        console.log(a);
-                        let prodRef = `/product-details?productCode=${a.productCode}&productCategory=${a.productCategory}`
+                        // console.log(a);
+                        let prodRef = `/product-details?productCode=${a.productId.productCode}&productCategory=${a.productId.productCategory}`
                         return(
                             <>
                             <div className="product-card">
                                 <div className="product-image">
                                     <a href={prodRef}>
-                                        <img src={a.productImage[0]} alt="Latest Product" />
+                                        <img src={a.productId.productImage[0]} alt="Latest Product" />
                                     </a>
-                                    <button className="card-btn">
-                                        <SuitHeart />
+                                    <button className="card-btn" onClick={()=>{removeFromFavourite(a.productId)}}>
+                                        <BsSuitHeartFill />
                                     </button>
-                                    <button type="button" className=" quick-view" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onClick={()=>viewQuick(a)} >Quick view</button>
+                                    <button type="button" className=" quick-view" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onClick={()=>viewQuick(a.productId)} >Quick view</button>
                                 </div>
                                 <div className="product-info">
-                                    <h4 className="product-brand">{a.productName}</h4>
+                                    <h4 className="product-brand">{a.productId.productName}</h4>
                                     {
-                                        a.discountedPrice 
+                                        a.productId.discountedPrice 
                                         ? 
                                         <div id='discounted-price'>
-                                            <span className="price">Rs. {a.price}</span>
-                                            <span className="discountedPrice text-green">Rs. {a.discountedPrice}</span>
+                                            <span className="price">Rs. {a.productId.price}</span>
+                                            <span className="discountedPrice text-green">Rs. {a.productId.discountedPrice}</span>
                                         </div>
                                         :
                                         <div id='actual-price'>
-                                            <span className="actual-price">Rs. {a.price}</span>
+                                            <span className="actual-price">Rs. {a.productId.price}</span>
                                         </div>
                                     }
 
                                     {/* <br /> */}
-                                    <button id='add-to-bag' onClick={(e)=>{addToBag(a);e.preventDefault();}}>Add to Bag</button>
+                                    <button id='add-to-bag' onClick={(e)=>{addToBag(a.productId);e.preventDefault();}}>Add to Bag</button>
                                 </div>
                             </div>
                             
@@ -197,8 +163,7 @@ export default function ShopProducts({product, fav}){
                     </div>
                 </div>
             </div>
-
-
+            
         </>
     )
 

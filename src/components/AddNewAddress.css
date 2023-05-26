@@ -1,0 +1,22 @@
+.address-form .half-width{
+    width: 45%;
+    
+}
+.address-form .formStyle{
+    border: none;
+    margin: 0 1rem;
+    padding-left: 5px;
+    border-bottom: 1px solid #E5E7EB;
+}
+.address-form .fullWidth{
+    width: 94.6%;
+}
+.address-form .submit{
+    border: 1px solid #1F2937;
+    border-radius: 2px;
+    padding: 7px 30px;
+}
+
+
+
+

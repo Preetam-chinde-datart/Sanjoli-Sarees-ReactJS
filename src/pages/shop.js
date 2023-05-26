@@ -28,7 +28,7 @@ export default function Shop(){
         axios.get(url)
         .then((res)=>{
             setProduct(res.data.data)
-            // console.log(res.data.data);
+            console.log(res.data.data);
         }).catch((err)=>{
             // alert(err)
             console.log("Server not started");

@@ -612,3 +612,7 @@ a.backlink{
 a.backlink:hover{
     color: var(--dark-gray);
 }
+
+.wrap-flex{
+    flex-wrap: wrap !important;
+}

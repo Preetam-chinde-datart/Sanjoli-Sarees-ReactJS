@@ -10,10 +10,21 @@ export default function Products({prodCat}){
 
     // Products 
     const [products , setProducts] = useState([])
-    const url = `${process.env.REACT_APP_TEST_LINK}/getproduct/?${prodCat}`
+    const url = process.env.REACT_APP_TEST_LINK
+
+    // For add to bag 
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODQ5ODU5NTQsImV4cCI6MTY4NTAyOTE1NH0.JEGM7VN0iFdegC9pv5-Q2WNSVeUx8gahNbNfHHxssfk';
+    const userId = '646b52a75bba83d29383a25a'
+  
+    const authAxios = axios.create({
+        baseURL : url,
+        headers : {
+        'auth-jwt' : token,
+        },
+    })
     
     useEffect(()=>{
-        axios.get(url)
+        axios.get(`${url}/getproduct/?${prodCat}`)
         .then((res)=>{
             setProducts(res.data.data)
             // console.log(res.data.data);
@@ -21,7 +32,16 @@ export default function Products({prodCat}){
             // alert(err)
             console.log("Server not started");
         });
-    },[url])
+
+        // authAxios.get(`/getCart/${userId}`)
+        // .then(res => {
+        //     console.log(res.data.data);
+        // })
+        // .catch(error => {
+        //     console.log(error);
+        // });
+
+    },[])
     // console.log(products);
 
     // Product slider
@@ -51,7 +71,18 @@ export default function Products({prodCat}){
     }
     
     
-    
+    // Add to bag
+    const addToBag = async (data) => {
+        console.log(data._id);
+        try {
+            const response = await authAxios.post(`/addCart/${userId}`, `productId=${data._id}`)
+            console.log(response);
+            
+        } catch (error) {
+            alert('Product already in Bag')
+            console.log(error.response.data.message);
+        }
+    }
     
     
     
@@ -91,7 +122,7 @@ export default function Products({prodCat}){
                                     }
 
                                     {/* <br /> */}
-                                    <button className="">Add to Bag</button>
+                                    <button id="add-to-bag" className='' onClick={(e)=>{addToBag(a);e.preventDefault()}}>Add to Bag</button>
                                 </div>
                             </div>
                             
