@@ -35,30 +35,18 @@ export default function QuickviewProduct({wholeProd}){
             <section className="quickview-product mb-4">
                 <div className="container d-md-flex mt-4">
                     <div id='small-images' className="col-md-2 sub-products px-4">
-                        {wholeProd.productImage[0] ? 
-                            <img id="image-option-1" src={wholeProd.productImage[0]} alt="Product" className="image-option image-option-1" width="100%" onClick={(e)=>{document.getElementById('main-img').src = wholeProd.productImage[0]; e.preventDefault()}} />
-                            :
-                            <span></span>
+                        {
+                            wholeProd.productImage.map((data,i)=>{
+                                // console.log(i);
+                                return(
+                                    <>
+                                        <img id={`image-option-${i+1}`} src={data} alt="Product" className={`image-option image-option-${i+1}`} width="100%" onClick={(e)=>{document.getElementById('main-img').src = data; e.preventDefault()}} />
+                                        <br />
+                                    </>
+                                )
+                            })
+                            
                         }
-                        <br />
-                        {wholeProd.productImage[1] ? 
-                            <img id="image-option-2" src={wholeProd.productImage[1]} alt="Product" className="image-option image-option-2" width="100%" onClick={(e)=>{document.getElementById('main-img').src = wholeProd.productImage[1]; e.preventDefault()}} />
-                            :
-                            <span></span>
-                        }
-                        <br />
-                        {wholeProd.productImage[2] ? 
-                            <img id="image-option-3" src={wholeProd.productImage[2]} alt="Product" className="image-option image-option-3" width="100%" onClick={(e)=>{document.getElementById('main-img').src = wholeProd.productImage[2]; e.preventDefault()}} />
-                            :
-                            <span></span>
-                        }
-                        <br />
-                        {wholeProd.productImage[3] ? 
-                            <img id="image-option-4" src={wholeProd.productImage[3]} alt="Product" className="image-option image-option-4" width="100%" onClick={(e)=>{document.getElementById('main-img').src = wholeProd.productImage[3]; e.preventDefault()}} />
-                            :
-                            <span></span>
-                        }
-                        <br />
                     </div>
                     <div className="col-md-4 main-product">
                         <div className="main-img-container">

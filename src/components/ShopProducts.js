@@ -9,11 +9,54 @@ export default function ShopProducts({product, fav}){
     
 
     // Sort by 
-    const [sortBy, setSortBy] = useState([]);
+    const [sortBy, setSortBy] = useState(product);
 
     // Quickview 
     const [fullProduct, setFullProduct] = useState([])
 
+
+    // Pagination 
+    const [currentPage, setCurrentPage] = useState(1);
+    const recordsPerPage = 16;
+    const lastIndex = currentPage * recordsPerPage;
+    const firstIndex = lastIndex - recordsPerPage;
+    const records = sortBy.slice(firstIndex, lastIndex);
+    const npage = Math.ceil(sortBy.length / recordsPerPage);
+    const numbers = [...Array(npage + 1).keys()].slice(1);
+
+   
+
+    
+    function viewQuick(prod){
+        setFullProduct(prod)
+    }
+
+    // Sorting
+    let finalSort;
+    function SortItNow(e){
+        const sarees = document.getElementById("sarees").value;
+        if(sarees === 'price-low-high'){
+            finalSort = sortBy.sort((a,b)=> a.price - b.price)
+            setSortBy(finalSort)
+            console.log('sort changing low to high');
+        }
+        if(sarees === 'price-high-low'){
+            finalSort = sortBy.sort((a,b)=> b.price - a.price)
+            setSortBy(finalSort)
+            console.log('sort changing high to low');
+        }
+        if(sarees === 'name-a-z'){
+            finalSort = sortBy.sort((a, b) => (a.productName > b.productName) ? 1: -1)
+            setSortBy(finalSort)
+            console.log('sort changing name a to z');
+        }
+        if(sarees === 'name-z-a'){
+            finalSort = sortBy.sort((a, b) => (a.productName < b.productName) ? 1: -1)
+            setSortBy(finalSort)
+            console.log('sort changing name z to a');
+        }
+        e.preventDefault();
+    }
 
     // For add to bag 
     const url = process.env.REACT_APP_TEST_LINK
@@ -26,44 +69,6 @@ export default function ShopProducts({product, fav}){
         'auth-jwt' : token,
         },
     })
-
-
-    // Pagination 
-    const [currentPage, setCurrentPage] = useState(1);
-    const recordsPerPage = 16;
-    const lastIndex = currentPage * recordsPerPage;
-    const firstIndex = lastIndex - recordsPerPage;
-    const records = product.slice(firstIndex, lastIndex);
-    const npage = Math.ceil(product.length / recordsPerPage);
-    const numbers = [...Array(npage + 1).keys()].slice(1);
-
-   
-
-    
-    function viewQuick(prod){
-        setFullProduct(prod)
-    }
-
-    // Sorting
-    function SortItNow(e){
-        const sarees = document.getElementById("sarees").value;
-        if(sarees === 'price-low-high'){
-            setSortBy(sortBy.sort((a,b)=> a.price - b.price))
-            console.log('sort changing');
-        }
-        if(sarees === 'price-high-low'){
-            setSortBy(sortBy.sort((a,b)=> b.price - a.price))
-            console.log('sort changing');
-        }
-        if(sarees === 'name-a-z'){
-            setSortBy(sortBy.sort((a, b) => (a.productName > b.productName) ? 1: -1))
-            console.log('sort changing');
-        }
-        if(sarees === 'name-z-a'){
-            setSortBy(sortBy.sort((a, b) => (a.productName < b.productName) ? 1: -1))
-            console.log('sort changing');
-        }
-    }
 
     // Add to bag
     const addToBag = async (data) => {
@@ -88,14 +93,14 @@ export default function ShopProducts({product, fav}){
                 <></>
                 :
                 <div className="sorting d-flex justify-content-between">
-                    <div className="showing-result">
-                        Showing {records.length} product(s) out of {product.length} products
+                    <div className="showing-result pb-2">
+                        Showing {firstIndex+1} to {lastIndex<sortBy.length ? lastIndex : sortBy.length} products out of {sortBy.length} products
                     </div>
                     <div className="sort">
                         <form>
                         <label htmlFor='sortby'>Sort by&nbsp;</label>
-                        <select name="sarees" id="sarees" onClick={SortItNow}>
-                            {/* <option value="selected" selected>Select Sort</option> */}
+                        <select name="sarees" id="sarees" onChange={SortItNow}>
+                            <option value="selected" selected disabled>Select Sort</option>
                             <option value="price-low-high">Price (Low to High)</option>
                             <option value="price-high-low">Price (High to Low)</option>
                             <option value="name-a-z">Name (A to Z)</option>
@@ -112,7 +117,7 @@ export default function ShopProducts({product, fav}){
                 
                 {
                     records.map((a , i)=>{
-                        console.log(a);
+                        // console.log(a);
                         let prodRef = `/product-details?productCode=${a.productCode}&productCategory=${a.productCategory}`
                         return(
                             <>
@@ -156,21 +161,21 @@ export default function ShopProducts({product, fav}){
             <nav className='mt-3'>
                 <ul className="pagination justify-content-center mb-2">
                     <li className="page-item">
-                        <a href="" className='page-link' onClick={prePage}>
+                        <a href="#" className='page-link' onClick={prePage}>
                             <span>&lt; Prev</span>
                         </a>
                     </li>
                     {
                         numbers.map((n,i) => (
                             <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
-                                <a href="" className='page-link' onClick={(e)=>{changeCPage(n); e.preventDefault()}}>
+                                <a href="#" className='page-link' onClick={(e)=>{changeCPage(n); e.preventDefault()}}>
                                     <span>{n}</span>
                                 </a>
                             </li>
                         ))
                     }
                     <li className="page-item">
-                        <a href="" className='page-link' onClick={nextPage}>
+                        <a href="#" className='page-link' onClick={nextPage}>
                             <span>Next &gt;</span>
                         </a>
                     </li>
@@ -179,7 +184,7 @@ export default function ShopProducts({product, fav}){
 
 
             {/* Model Quickview */}
-            <div className="modal fade" id="exampleModal" tabIndex={-1}  aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade quick-view" id="exampleModal" tabIndex={-1}  aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">

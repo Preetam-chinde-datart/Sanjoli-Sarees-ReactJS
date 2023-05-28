@@ -5,13 +5,13 @@
 }
 .contact-header{
     margin: 3rem 6rem;
-  }
-  .vertical-navigation>ul{
-  list-style-type: none;
- margin: 0rem 1rem;
-  padding: 0;
-  width: 200px;
-  /* background-color: #f1f1f1; */
+}
+.vertical-navigation>ul{
+    list-style-type: none;
+    margin: 0rem 1rem;
+    padding: 0;
+    width: 200px;
+    /* background-color: #f1f1f1; */
 }
 
 .ver-nav {
@@ -182,7 +182,8 @@ font-size: 12px;
     margin-right: -2rem;
 }
 hr{
-        margin: 1rem 10rem 10px 0rem;
+    margin: 1rem 10rem 10px 0rem;
+    width: 100%;
 }
 .left{
     float: left;
@@ -200,7 +201,7 @@ hr{
     padding: 1rem;
     height: 500px;
 }
-.profile>button:hover, .order>button:hover, .logout>button:hover{
+.profile a button:hover, .order a button:hover, .logout>button:hover{
     color: #519D42;
 
 }
@@ -220,4 +221,7 @@ hr{
 }
 .address-info .container.d-flex{
     flex-wrap: wrap;
+}
+.ver-nav.active{
+    color: var(--green);
 }

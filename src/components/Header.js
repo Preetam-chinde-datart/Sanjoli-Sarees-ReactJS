@@ -3,6 +3,9 @@ import { SuitHeart, Person, Bag } from 'react-bootstrap-icons'
 
 export default function Header(){
 
+    const paramValue = window.location.pathname;
+    // console.log(paramValue);
+
     return(
         <>
             <section id="header" className="pb-3">
@@ -19,20 +22,20 @@ export default function Header(){
                     </button>
                     {/* Brand  */}
                     <a href="/" className="navbar-brand">
-                    <img src={require("../images/Logo-Header.png")} width="100%" alt="Company Logo" />
+                        <img src={require("../images/Logo-Header.png")} width="100%" alt="Company Logo" />
                     </a>
                     {/* Profile  */}
                     <div className="profile">
-                    <a href='/account' className="btn position-relative" id='user-account'>
+                    <a href='/account' className={paramValue == '/account' ? 'btn position-relative active' : 'btn position-relative'} id='user-account'>
                         <Person/>
                         <span className="account"> Account</span>
                     </a>
-                    <a href='/favourites' className="btn position-relative" id='favourites'>
+                    <a href='/favourites' className={paramValue == '/favourites' ? 'btn position-relative active' : 'btn position-relative'} id='favourites'>
                         <SuitHeart />
                         {/* <span className="position-absolute start-60 translate-items badge bg-color bag-user">2</span> */}
                         <span className="favourites"> Favourites</span>
                     </a>
-                    <a href='/bag' className="btn position-relative" id='bag'>
+                    <a href='/bag' className={paramValue == '/bag' ? 'btn position-relative active' : 'btn position-relative'} id='bag'>
                         <Bag />
                         <span className="position-absolute start-60 translate-items badge bg-color bag-user">2</span>
                         <span className="bag ps-md-2"> Bag</span>
@@ -47,16 +50,16 @@ export default function Header(){
                     <ul className="navbar-nav">
                         {/* mx-auto text-center */}
                         <li className="nav-item">
-                        <a href="/" className="nav-link active">Home</a>
+                        <a href="/" className={paramValue === '/' ? 'nav-link active' : 'nav-link'}>Home</a>
                         </li>
                         <li className="nav-item">
-                        <a href="/about" className="nav-link ">About</a>
+                        <a href="/about" className={paramValue === '/about' ? 'nav-link active' : 'nav-link'}>About</a>
                         </li>
                         <li className="nav-item">
-                        <a href="/shop" className="nav-link ">Shop</a>
+                        <a href="/shop" className={paramValue === '/shop' ? 'nav-link active' : 'nav-link'}>Shop</a>
                         </li>
                         <li className="nav-item">
-                        <a href="/contact" className="nav-link ">Contact</a>
+                        <a href="/contact" className={paramValue === '/contact' ? 'nav-link active' : 'nav-link'}>Contact</a>
                         </li>
                     </ul>
                     </div>
@@ -67,7 +70,6 @@ export default function Header(){
                         type="text"
                         placeholder="Search for products"
                     />
-                    {/* <img id="mglass" src={require("../images/search.png")} alt='Search'/> */}
                     </div>
                 </div>
                 </nav>

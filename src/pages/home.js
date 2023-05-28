@@ -13,19 +13,20 @@ export default function HomePage(){
     // console.log('whole product', wholeProduct)
 
 
-    // $('.carousel .carousel-item').each(function () {
+    // document.addEventListener()
+    // ('.carousel .carousel-item').each(function () {
     //   var minPerSlide = 3;
-    //   var next = $(this).next();
+    //   var next = this.next();
     //   if (!next.length) {
-    //     next = $(this).siblings(':first');
+    //     next = this.siblings(':first');
     //   }
-    //   next.children(':first-child').clone().appendTo($(this));
+    //   next.children(':first-child').clone().appendTo(this);
     //   for (var i = 0; i < minPerSlide; i++) { 
     //     next=next.next();
     //     if (!next.length) {
-    //       next=$(this).siblings(':first');
+    //       next=this.siblings(':first');
     //     } 
-    //     next.children(':first-child').clone().appendTo($(this)); 
+    //     next.children(':first-child').clone().appendTo(this); 
     //   } 
     // });
    
@@ -62,54 +63,48 @@ export default function HomePage(){
           </div>
           <div className="container d-md-flex">
             <div className="col-md-4 cat-card">
-              <img src={require("../images/cat1.png")} alt="Category" width="100%" />
-              <h4>Lorem ipsum dolor</h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
-                perspiciatis nisi explicabo.
-              </p>
+              <a href="/shop?productCategory=Traditional%20Sarees">
+                <img src={require("../images/cat-1.png")} alt="Category" width="100%" />
+              </a>
+              <h4 className='pt-2'>Traditional Wear</h4>
+              <p>Elegant and classic sarees that showcase the beauty of Indian tradition.</p>
             </div>
             <div className="col-md-4 cat-card">
-              <img src={require("../images/cat2.png")} alt="Category" width="100%" />
-              <h4>Lorem ipsum dolor</h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
-                perspiciatis nisi explicabo.
-              </p>
+              <a href="/shop?productCategory=Daily%20Sarees">
+                <img src={require("../images/cat-2.png")} alt="Category" width="100%" />
+              </a>
+              <h4 className='pt-2'>Daily Wear</h4>
+              <p>Simple and comfortable sarees perfect for everyday wear.</p>
             </div>
             <div className="col-md-4 cat-card">
-              <img src={require("../images/cat3.png")} alt="Category" width="100%" />
-              <h4>Lorem ipsum dolor</h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
-                perspiciatis nisi explicabo.
-              </p>
+              <a href="/shop?productCategory=Wedding%20Sarees">
+                <img src={require("../images/cat-3.png")} alt="Category" width="100%" />
+              </a>
+              <h4 className='pt-2'>Wedding Saree</h4>
+              <p>Luxurious and ornate sarees that are perfect for a bride on her special day.</p>
             </div>
           </div>
           <div className="container d-md-flex">
             <div className="col-md-4 cat-card">
-              <img src={require("../images/cat4.png")} alt="Category" width="100%" />
-              <h4>Lorem ipsum dolor</h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
-                perspiciatis nisi explicabo.
-              </p>
+              <a href="/shop?productCategory=Festival%20Wear">
+                <img src={require("../images/cat-4.png")} alt="Category" width="100%" />
+              </a>
+              <h4 className='pt-2'>Festive Wear</h4>
+              <p>Vibrant and colorful sarees that are perfect for celebrating Indian festivals.</p>
             </div>
             <div className="col-md-4 cat-card">
-              <img src={require("../images/cat5.png")} alt="Category" width="100%" />
-              <h4>Lorem ipsum dolor</h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
-                perspiciatis nisi explicabo.
-              </p>
+              <a href="/shop?productCategory=Party%20Wear">
+                <img src={require("../images/cat-5.png")} alt="Category" width="100%" />
+              </a>
+              <h4 className='pt-2'>Party wear</h4>
+              <p>Glamorous and stylish sarees that are perfect for parties and special occasions.</p>
             </div>
             <div className="col-md-4 cat-card">
-              <img src={require("../images/cat6.png")} alt="Category" width="100%" />
-              <h4>Lorem ipsum dolor</h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
-                perspiciatis nisi explicabo.
-              </p>
+              <a href="/shop?productCategory=Girlish%20Sarees">
+                <img src={require("../images/cat-6.png")} alt="Category" width="100%" />
+              </a>
+              <h4 className='pt-2'>Girlish Saree</h4>
+              <p>Fun and playful sarees with youthful designs and patterns.</p>
             </div>
           </div>
         </div>
@@ -152,7 +147,7 @@ export default function HomePage(){
       </section>
       {/* End of USP */}
       {/* Testimonials */}
-      <section className="pt-4 mt-4 testimonials">
+      {/* <section className="pt-4 mt-4 testimonials">
         <div className="container">
           <h2>What our customers says</h2>
         </div>
@@ -371,13 +366,13 @@ export default function HomePage(){
             </button>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* End of Testimonials */}
 
       {/* Go to top button  */}
-      <a href="#" className="go-to-top">
+      {/* <a href="#" className="go-to-top">
         <FiArrowUp></FiArrowUp>
-      </a>
+      </a> */}
       {/* Go to top button  */}
     </>
 

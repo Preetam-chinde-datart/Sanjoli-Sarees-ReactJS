@@ -7,6 +7,6 @@
 .text-tax {
     color: #868681 !important;
 }
-.modal{
+.modal.quick-view{
     --bs-modal-width: 750px !important;
 }

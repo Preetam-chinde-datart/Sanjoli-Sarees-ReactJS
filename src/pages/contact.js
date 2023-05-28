@@ -20,7 +20,7 @@ function Contact(){
     try {
       const response = await axios.post("https://server-dot-sanjoli-sarees-testenvironment.el.r.appspot.com/contactForm", formData);
       console.log(response.data);
-      alert("Data Saved")
+      alert("Message sent successfully")
       setStatus(response.data.status);
       // console.log(response.data.status)
     } catch (error) {
@@ -29,8 +29,8 @@ function Contact(){
     }
   };
 
-  if(status === true){
-
+  if(status == true){
+    
   }
 
   const handleChange = (event) => {

@@ -12,7 +12,7 @@ export default function Favourites(){
     let fav = 0;
 
     
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUwNzI1NzEsImV4cCI6MTY4NTExNTc3MX0.0-zEBj59oz5qyKIJBpiAIKCPV4z-USNQAtyRermoFFc';
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUyNDY3ODAsImV4cCI6MTY4NTI4OTk4MH0.xj0aQPs8pnKUvvJxUn3G42VS4kCkGNWqrsc9cNsvKkg';
     const userId = '646b52a75bba83d29383a25a'
   
     const authAxios = axios.create({

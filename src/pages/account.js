@@ -29,7 +29,7 @@ function Profile() {
   const [user, dispatch] = useReducer(userReducer, null)
 
   const url = process.env.REACT_APP_TEST_LINK;  
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUwNzI1NzEsImV4cCI6MTY4NTExNTc3MX0.0-zEBj59oz5qyKIJBpiAIKCPV4z-USNQAtyRermoFFc';
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUyNDY3ODAsImV4cCI6MTY4NTI4OTk4MH0.xj0aQPs8pnKUvvJxUn3G42VS4kCkGNWqrsc9cNsvKkg';
   const userId = '646b52a75bba83d29383a25a'
   
   const authAxios = axios.create({
@@ -50,12 +50,7 @@ function Profile() {
       });
   }, []);
 
-  // addAddress
-  const [newAddress, setNewAddress] = useState(null)
-
-  function addAddress(){
-
-  }
+  
 
 
 
@@ -65,7 +60,7 @@ function Profile() {
         <div className='container mt-3'>
           <a href='/' className='backlink'>&lt; Back</a>
           <div className='page-heading mb-3 pb-3'>
-            <h2>My profile</h2>
+            <h2>My Account</h2>
           </div>
         </div>
       {
@@ -78,19 +73,23 @@ function Profile() {
               <ul>
                 <li className="profile">
                   <RxPerson />
-                  <button className="ver-nav" href="#profile">
-                    My Profile
-                  </button>
+                  <a href="/account">
+                    <button className="ver-nav active" >
+                      My Profile
+                    </button>
+                  </a>
                 </li>
                 <li className="order">
                   <Bag />
-                  <button className="ver-nav" href="#myorders">
-                    My Orders
-                  </button>
+                  <a href="/order-history">
+                    <button className="ver-nav">
+                      My Orders
+                    </button>
+                  </a>
                 </li>
                 <li className="logout">
                   <MdOutlineLogout />
-                  <button className="ver-nav" href="#logout">
+                  <button className="ver-nav">
                     Logout
                   </button>
                 </li>
@@ -101,7 +100,7 @@ function Profile() {
             <div className="container d-flex">
               <div className="col-md-4">
                 <div className="my-details">
-                  <h5>My Details</h5>
+                  <h3>My Profile</h3>
                 </div>
               </div>
               <div className="col-md-4" />
@@ -168,6 +167,7 @@ function Profile() {
                         className="email"
                         id="email"
                         required
+                        disabled
                         value={user.email}
                       />
                       <br />
@@ -183,6 +183,7 @@ function Profile() {
                         className="mob-no"
                         id="mob-no"
                         required
+                        disabled
                         value={user.mobileNo}
                       />
                       <br />
@@ -224,7 +225,7 @@ function Profile() {
                 
                 <div className="col-md-4 px-2 py-3">
                   <div className="address-container text-center">
-                  <button type="button" className=" quick-view" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onClick={(e)=>addAddress()}>
+                  <button type="button" className=" quick-view" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
                     <FiPlus /> <br /> Add New Address
                   </button>
                       
