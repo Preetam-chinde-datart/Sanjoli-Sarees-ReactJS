@@ -1,0 +1,131 @@
+.blue-line,.grey-line{
+       width: 89%;
+       height: 4px;
+       color: 6B7280;
+
+}
+.step{
+font-style: normal;
+font-size: 12px;
+color: #4B5563;
+}
+.header2{
+font-style: normal;
+font-size: 16px;
+color: #1F2937;
+}
+.progress2{
+font-style: normal;
+font-size: 12px;
+color: #1D4ED8;
+color: #4B5563;
+}
+.progress3{
+font-style: normal;
+font-size: 12px;
+color: #4B5563;
+}
+.billing-part{
+    float: left;
+    /* width: 70%; */
+    /* background-color: rgb(212, 218, 208); */
+}
+.order-part{
+    background-color:#FAFAFA;
+    width: 62%;
+    padding: 1rem;
+    float: right;
+}
+.checkout-btn{
+    border-radius: 3px;
+    width: 35%;
+    text-decoration: none;
+    border: none;
+    background: #519D42;
+    color: #FFFFFF;
+    height: 34px;
+     font-style: normal;
+    font-size: 18px;
+}
+.head{
+margin: 0rem 3rem;
+font-size: 12px;
+}
+.h5{
+margin:0rem 3rem
+}
+
+
+/* ---------------------  Add Address  Form  ----------------- */
+.Add-address{
+    padding: 2px;
+    /* width: 150%; */
+}
+
+
+.modal-header{
+    border-bottom: none !important;
+      font-family: 'Source Sans Pro';
+}
+
+.submit-btn{
+    background-color:white;
+    width: 32% !important;
+    border: 2px solid#1F2937;
+;
+    height: 38px;
+    border-radius: 6px;
+    color: #1F2937;
+   margin: 2rem 0rem 1rem;
+}                       
+.contactNumber,.country,.streetAdress,.additionalCommit{
+    /* margin: rem 2rem 1rem; */
+    height: 34px;
+    width: 82% !important;
+    padding: 14px;
+    font-size: 14px;
+      font-family: 'Source Sans Pro';
+
+}
+.f-name,.l-name,.state,.town,.landMark,.pinCode{
+    margin: 0rem 0.27rem 1.5rem;
+    height: 34px;
+   width: 39.5%;
+   color: #4B5563;
+   font-family: 'Source Sans Pro';
+    padding: 14px;
+    font-size: 14px;
+}
+
+/* input[type=text],input[type=password],input[type=email],input[type=number],input[type=tel],[textarea]:hover {
+    border: 1px solid #519D42;
+} */
+.frm-container{
+    display: flex;
+    flex-direction: column;
+}
+.login-link>a{
+    color:  #519D42 !important;
+    background-color: transparent !important;
+    text-decoration: none !important ;
+  }
+  .g-btn{
+  margin: 0rem 7rem !important;
+  width: 50% !important;
+  }
+  .fb-login-button{
+  border-radius: 3px;
+  color: #1D4ED8 !important;
+  background-color: none !important;  
+  
+  }
+  .fb-button-main- {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    border-radius: 3px  !important;
+    background-color: white !important; 
+    color: #1D4ED8 !important;
+    border: 1px solid !important;
+    font-weight: bold;
+  }

@@ -1,0 +1,96 @@
+.show-popup{
+  background-color: #519D42;
+    width: 50%;
+    border: none;
+    height: 38px;
+    border-radius: 6px;
+    color: white;
+    margin: 2rem 0rem;
+}
+
+.modal-header{
+    border-bottom: none !important;
+      font-family: 'Source Sans Pro';
+}
+
+.submit-btn{
+    background-color:white;
+    width: 32% !important;
+    border: 2px solid#1F2937;
+;
+    height: 38px;
+    border-radius: 6px;
+    color: #1F2937;
+   margin: 2rem 0rem 1rem;
+}                       
+.contactNumber,.country,.streetAdress,.additionalCommit{
+    /* margin: rem 2rem 1rem; */
+    height: 34px;
+    width: 82% !important;
+    padding: 14px;
+    font-size: 14px;
+      font-family: 'Source Sans Pro';
+
+}
+.header2{
+  font-size: 14px;
+}
+.f-name,.l-name,.landMark,.pinCode{
+  margin: 0rem 0.27rem 0rem;
+    height: 34px;
+   width: 39.5%;
+   color: #4B5563;
+   font-family: 'Source Sans Pro';
+    padding: 14px;
+    font-size: 14px;
+}
+.state{
+  height: 35px;
+  width: 39.5%;
+  color: #4B5563;
+  font-family: 'Source Sans Pro';
+  padding: 3px;
+  font-size: 14px;
+  /* margin: 0rem 6rem 0rem -6rem; */
+}
+.town
+{
+  height: 35px;
+  width: 39.5%;
+  color: #4B5563;
+  font-family: 'Source Sans Pro';
+  padding: 3px;
+  font-size: 14px;
+  margin: 0rem 0rem 0rem 1rem;
+}
+
+ */
+.frm-container{
+    display: flex;
+    flex-direction: column;
+}
+.login-link>a{
+    color:  #519D42 !important;
+    background-color: transparent !important;
+    text-decoration: none !important ;
+  }
+  .g-btn{
+  margin: 0rem 7rem !important;
+  width: 50% !important;
+  }
+  .fb-login-button{
+  border-radius: 3px;
+  color: #1D4ED8 !important;
+  background-color: none !important;  
+  
+  }
+  .fb-button-main- {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    border-radius: 3px  !important;
+    background-color: white !important; 
+    color: #1D4ED8 !important;
+    border: 1px solid !important;
+    font-weight: bold;
+  }
