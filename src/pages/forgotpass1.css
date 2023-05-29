@@ -1,0 +1,112 @@
+
+.btn-link>a{
+    color:  #519D42 !important;
+    background-color: transparent !important;
+    text-decoration: none !important ;
+  }
+.password-container{
+    width: 82% !important;
+    position: relative;
+  }
+  .password-container input[type="password"],
+  .password-container input[type="text"]{
+    width: 82%;
+    padding: 12px 36px 12px 12px;
+    box-sizing: border-box;
+  }
+  .fa-eye{
+    position: absolute;
+    top: 53%;
+    right: 26%;
+    cursor: pointer;
+  }
+  /* .pass-sign{
+    width: 143% !important;
+  } */
+
+.email-lbl,.pass-lbl
+{
+margin: 0rem 2.7rem !important;
+ font-family: 'Source Sans Pro';
+font-size: 12px;
+color: #4B5563;
+
+}
+
+.modal-header{
+    border-bottom: none !important;
+      font-family: 'Source Sans Pro';
+}
+
+.submit-btn{
+    background-color: #519D42;
+    width: 83% !important;
+    border: none;
+    height: 38px;
+    border-radius: 6px;
+    color: white;
+   margin: 1rem 0rem 1rem;
+   font-size: 16px;
+}
+.lock-img{
+    margin: 0rem 0rem 1rem;
+}
+.email,.mob-no,.pass-sign,.pass-sign-confirm{
+    /* margin: rem 2rem 1rem; */
+    height: 34px;
+    width: 82% !important;
+    padding: 14px;
+    font-size: 14px;
+    font-family: 'Source Sans Pro';
+
+}
+.f-name,.l-name{
+    margin: 0rem 0.27rem 1.5rem;
+    height: 34px;
+   width: 39.5%;
+   color: #4B5563;
+   font-family: 'Source Sans Pro';
+    padding: 14px;
+    font-size: 14px;
+}
+
+input[type=text],input[type=password],input[type=email],input[type=number],input[type=tel],[textarea]:hover {
+    border: 1px solid #519D42;
+}
+.frm-container{
+    display: flex;
+    flex-direction: column;
+}
+.login-link>a{
+    color:  #519D42 !important;
+    background-color: transparent !important;
+    text-decoration: none !important ;
+    width: 452px;
+    height: 12px;
+    
+    /* font-family: 'Source Sans Pro'; */
+    font-style: normal;
+    font-size: 14px;
+   
+    text-align: center;
+  }
+  .g-btn{
+  margin: 0rem 7rem !important;
+  width: 50% !important;
+  }
+  .fb-login-button{
+  border-radius: 3px;
+  color: #1D4ED8 !important;
+  background-color: none !important;  
+  
+  }
+  .fb-button-main- {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    border-radius: 3px  !important;
+    background-color: white !important; 
+    color: #1D4ED8 !important;
+    border: 1px solid !important;
+    font-weight: bold;
+  }
