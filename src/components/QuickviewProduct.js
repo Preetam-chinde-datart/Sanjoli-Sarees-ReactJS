@@ -91,7 +91,7 @@ export default function QuickviewProduct({wholeProd}){
                     <p>Product code: <span id="product-code" className="product-code">{wholeProd.productCode}</span>
                     </p>
                     <hr />
-                    <p>Category: <span id="product-cat" className="product-cat"><b>{wholeProd.productCategory}</b></span>
+                    <p>Category: <span id="product-cat" className="product-cat">{wholeProd.productCategory}</span>
                     </p>
                     <hr />
                     <ul className="description">

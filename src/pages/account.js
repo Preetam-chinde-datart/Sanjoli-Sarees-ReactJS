@@ -99,7 +99,7 @@ function Profile() {
           <div className="right-div">
             <div className="container d-flex">
               <div className="col-md-4">
-                <div className="my-details">
+                <div className="my-details mb-4">
                   <h3>My Profile</h3>
                 </div>
               </div>
@@ -112,7 +112,7 @@ function Profile() {
             </div>
             <div className="pesonal-info">
               <div className="container">
-                <div className="h4">Personal Information</div>
+                <div className="fs-4">Personal Information</div>
                 <hr />
                 <div className="container d-flex">
                   <div className="col-md-6">
@@ -210,9 +210,9 @@ function Profile() {
                         <div className="col-md-4 px-2">
                           <div className="address-container">
                             <h5>{data.firstName} {data.lastName}</h5>
-                            <p className='text-capitalize'>{data.street}, {data.city}, {data.pincode}.<br /> 
-                            State: {data.state}, <br/> Country: {data.country} </p>
-                            <p>Phone: {data.contactNumber}</p>
+                            <p className='text-capitalize'>{data.street}, {data.city}, {data.pincode}. 
+                            State: {data.state},  Country: {data.country} </p>
+                            {/* <p>Phone: {data.contactNumber}</p> */}
                             <a href="#edit">Edit |</a>
                             <a href="#remove"> Remove </a>
                             {/* <a href="#set-default"> Set As Default</a> */}

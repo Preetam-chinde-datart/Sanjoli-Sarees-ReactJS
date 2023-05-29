@@ -92,7 +92,7 @@ export default function ShopProducts({product, fav}){
                 fav === 0 ?
                 <></>
                 :
-                <div className="sorting d-flex justify-content-between">
+                <div className="sorting d-md-flex justify-content-between">
                     <div className="showing-result pb-2">
                         Showing {firstIndex+1} to {lastIndex<sortBy.length ? lastIndex : sortBy.length} products out of {sortBy.length} products
                     </div>
@@ -188,7 +188,7 @@ export default function ShopProducts({product, fav}){
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <div className='fs-2 fw-bold'>{fullProduct.productName}</div>
+                            {/* <div className='fs-2 fw-bold'>{fullProduct.productName}</div> */}
                             <button
                                 type="button"
                                 className="btn-close"

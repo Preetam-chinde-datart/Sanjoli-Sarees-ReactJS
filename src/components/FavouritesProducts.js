@@ -112,7 +112,7 @@ export default function FavouriteProducts({product}){
                                     }
 
                                     {/* <br /> */}
-                                    <button id='add-to-bag' onClick={(e)=>{addToBag(a.productId);e.preventDefault();}}>Add to Bag</button>
+                                    <button id='add-to-bag' onClick={(e)=>{addToBag(a.productId);e.preventDefault();}}>Move to Bag</button>
                                 </div>
                             </div>
                             

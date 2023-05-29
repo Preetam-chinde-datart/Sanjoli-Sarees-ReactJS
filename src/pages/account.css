@@ -157,10 +157,10 @@ font-size: 12px;
     top: 53rem;
    
 }
-.logout{
+/* .logout{
     height: 400px;
     width: 400px;
-}
+} */
 .popup {
     width: 400px;
     background: #fff;
@@ -184,6 +184,7 @@ font-size: 12px;
 hr{
     margin: 1rem 10rem 10px 0rem;
     width: 100%;
+    opacity: .15;
 }
 .left{
     float: left;
@@ -227,4 +228,8 @@ hr{
 }
 .account-address.modal{
     --bs-modal-width: 750px !important;
+}
+
+input#new-pass, input#old-pass, input#conf-pass {
+    padding: 5px 10px;
 }

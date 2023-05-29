@@ -11,9 +11,9 @@ import Favourites from './pages/favourites'
 import Account from './pages/account'
 import Bag from './pages/bag'
 import OrderHistory from './pages/Order-History'
-import PrivacyPolicy from './pages/Order-History'
-import ReturnAndReturn from './pages/Order-History'
-import TermsAndConditions from './pages/Order-History'
+import PrivacyPolicy from './pages/Privacypolicy'
+import ReturnAndReturn from './pages/Legalpolicy'
+import TermsAndConditions from './pages/Statuspolicy'
 
 
 function App() {

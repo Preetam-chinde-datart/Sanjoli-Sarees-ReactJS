@@ -139,7 +139,7 @@ export default function Products({prodCat}){
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <div className='fs-2 fw-bold'>{fullProduct.productName}</div>
+                            {/* <div className='fs-2 fw-bold'>{fullProduct.productName}</div> */}
                             <button
                                 type="button"
                                 className="btn-close"

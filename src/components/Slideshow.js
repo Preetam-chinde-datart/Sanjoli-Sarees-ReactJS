@@ -44,6 +44,7 @@ export default function Slideshow(){
           {" "}
           Creating the image slider using the react-simple-image-slider
        </h3> */}
+       
        <SimpleImageSlider
           width={width}
           height={700}

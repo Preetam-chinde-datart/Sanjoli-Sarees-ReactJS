@@ -143,7 +143,7 @@ export default function Header(){
                     <div className="profile">
                     <a data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-whatever="@mdo" className={paramValue === '/account' ? 'btn position-relative active' : 'btn position-relative'} herf="../pages/login.js">
                         <Person/>
-                        <span className="account"> Account</span>
+                        <span className="account"> My account</span>
                     </a>
                     <a href='/favourites' className={paramValue === '/favourites' ? 'btn position-relative active' : 'btn position-relative'} id='favourites'>
                         <SuitHeart />
