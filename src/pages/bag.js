@@ -20,7 +20,7 @@ export default function Bag(){
     const [cartProducts, dispatch] = useReducer(cartReducer, null)
 
     const url = process.env.REACT_APP_TEST_LINK;
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUyNDY3ODAsImV4cCI6MTY4NTI4OTk4MH0.xj0aQPs8pnKUvvJxUn3G42VS4kCkGNWqrsc9cNsvKkg';
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUzMzMwNDgsImV4cCI6MTY4NTM3NjI0OH0.6cHoebb_2iJWC_BSDkIxYgwEeACZnmrGZ6AaYg6qj9U';
     const userId = '646b52a75bba83d29383a25a'
 
     const authAxios = axios.create({
@@ -49,13 +49,20 @@ export default function Bag(){
         // console.log(data);
         try {
             await authAxios.post(`/addFavorite/${userId}`, `productId=${data}`)
-            alert('Product moved to Bag successfully')
-            
             
         } catch (error) {
-            alert('Product add to favourite error')
+            // alert('Product add to favourite error')
             console.log(error.response);
         }
+        try {
+            await authAxios.put(`/updateCart/${userId}`, `productId=${data}`)
+            alert('Product moved to Favourites successfully')
+            window.location.reload() 
+        } catch (error) {
+            alert('Product removal error after adding to favourites')
+            console.log(error.response);
+        }
+        
     }
 
     // add to favoutites
@@ -63,8 +70,9 @@ export default function Bag(){
         // console.log(data);
         try {
 
-            await authAxios.post(`/updateCart/${userId}`, `productId=${data}`)
+            await authAxios.put(`/updateCart/${userId}`, `productId=${data}`)
             alert('Product Removed from Bag successfully')
+            window.location.reload()
             
             
         } catch (error) {

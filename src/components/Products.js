@@ -13,7 +13,7 @@ export default function Products({prodCat}){
     const url = process.env.REACT_APP_TEST_LINK
 
     // For add to bag 
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODQ5ODU5NTQsImV4cCI6MTY4NTAyOTE1NH0.JEGM7VN0iFdegC9pv5-Q2WNSVeUx8gahNbNfHHxssfk';
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUzMzMwNDgsImV4cCI6MTY4NTM3NjI0OH0.6cHoebb_2iJWC_BSDkIxYgwEeACZnmrGZ6AaYg6qj9U';
     const userId = '646b52a75bba83d29383a25a'
   
     const authAxios = axios.create({

@@ -47,7 +47,7 @@ const BagProducts = ({cartProducts, addToFavourites, removeFromCart, getSubTotal
                                                     </div>
                                                 }
                                                 
-                                                <button className='add-to-fav text-decoration-underline ps-0' onClick={()=>{addToFavourites(a.productId._id);removeFromCart(a.productId._id)}} >Add to favourites</button>
+                                                <button className='add-to-fav text-decoration-underline ps-0' onClick={()=>{addToFavourites(a.productId._id);}} >Add to favourites</button>
                                                 <button className='remove-from-cart text-danger' onClick={()=>removeFromCart(a.productId._id)}>Remove</button>
                                             </div>
                                             {/* Quantity and Price  */}

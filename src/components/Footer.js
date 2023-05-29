@@ -63,16 +63,16 @@ export default function Footer(){
                 <div className="col-md-3">
                     <h5 className='pb-3'>Social Links</h5>
                     <div className="social-media">
-                        <a href="https://www.facebook.com/sanjolisarees/"  target='_blank' rel='noreferrer'>
+                        <a className='facebok' href="https://www.facebook.com/sanjolisarees/"  target='_blank' rel='noreferrer'>
                             <RiFacebookFill />
                         </a>
-                        <a href="https://www.instagram.com/sanjolisarees/" target='_blank' rel='noreferrer'>
+                        <a className='insta' href="https://www.instagram.com/sanjolisarees/" target='_blank' rel='noreferrer'>
                             <SiInstagram />
                         </a>
-                        {/* <a href="#">
+                        {/* <a className='twiter' href="#">
                             <FaTwitter></FaTwitter>
                         </a>
-                        <a href="#">
+                        <a className='linkedIn' href="#">
                             <FaLinkedinIn></FaLinkedinIn>
                         </a> */}
                     </div>

@@ -72,7 +72,7 @@ function OrderHistory() {
       <div className="container d-flex">
         <div className="col-md-3">
           <div className="product-img">
-            {/* <img src={require("../images/product.png")} alt="" /> */}
+            <img src={require('../images/product1.png')} alt="" />
           </div>
         </div>
         {/* 1 */}
@@ -103,7 +103,7 @@ function OrderHistory() {
             <button type="submit" className="track-btn">
               Track Order
             </button>
-            {/* <button type="submit" class="review-btn">Write Review</button> */}
+            <button type="submit" class="review-btn">Write Review</button>
           </div>
         </div>
       </div>{" "}
@@ -113,7 +113,7 @@ function OrderHistory() {
       <div className="container d-flex">
         <div className="col-md-3">
           <div className="product-img">
-          {/* <img src={require("../images/product.png")} alt="" /> */}
+          <img src={require('../images/product1.png')} alt="" />
           </div>
         </div>
         <div className="col-md-3">
@@ -141,7 +141,7 @@ function OrderHistory() {
         <div className="col-md-3">
           <div className="product-btn">
             <button type="submit" className="track-btn1">Track Order</button>
-            {/* <button type="submit" class="review-btn1">Write Review</button> */}
+            <button type="submit" class="review-btn1">Write Review</button>
           </div>
         </div>
       </div>{" "}
@@ -151,7 +151,7 @@ function OrderHistory() {
       <div className="container d-flex">
         <div className="col-md-3">
           <div className="product-img">
-          {/* <img src={require("../images/product.png")} alt="" /> */}
+          <img src={require('../images/product1.png')} alt="" />
           </div>
         </div>
         <div className="col-md-3">

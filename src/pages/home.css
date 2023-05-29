@@ -620,3 +620,7 @@ a.backlink:hover{
 .wrap-flex{
     flex-wrap: wrap !important;
 }
+
+/* .facebok svg, .insta svg{
+    vertical-align: -2px !important;
+} */

@@ -13,7 +13,9 @@ export default function FavouriteProducts({product}){
 
     // For add to bag 
     const url = process.env.REACT_APP_TEST_LINK
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODQ5ODU5NTQsImV4cCI6MTY4NTAyOTE1NH0.JEGM7VN0iFdegC9pv5-Q2WNSVeUx8gahNbNfHHxssfk';
+    // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUzMzMwNDgsImV4cCI6MTY4NTM3NjI0OH0.6cHoebb_2iJWC_BSDkIxYgwEeACZnmrGZ6AaYg6qj9U';
+    localStorage.setItem("token",'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUzMzMwNDgsImV4cCI6MTY4NTM3NjI0OH0.6cHoebb_2iJWC_BSDkIxYgwEeACZnmrGZ6AaYg6qj9U');
+    const token = localStorage.getItem('token');
     const userId = '646b52a75bba83d29383a25a'
   
     const authAxios = axios.create({
@@ -59,7 +61,8 @@ export default function FavouriteProducts({product}){
     const removeFromFavourite = async (data) => {
         console.log('data id ',data._id);
         try {
-            const response = await authAxios.delete(`/removeFavorite/${userId}`, {productId : data._id})
+            // const json = JSON.parse({"productId" : data._id})
+            const response = await authAxios.delete(`/removeFavorite/${userId}`,{data:{productId : data._id}})
             console.log('fav response',response);
             alert('Product removed from Favourites successfully')
             

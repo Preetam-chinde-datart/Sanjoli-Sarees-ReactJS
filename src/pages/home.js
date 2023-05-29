@@ -13,8 +13,8 @@ export default function HomePage(){
     // console.log('whole product', wholeProduct)
 
 
-    // document.addEventListener()
-    // ('.carousel .carousel-item').each(function () {
+    
+    // ('.carousel .carousel-item').each(() => {
     //   var minPerSlide = 3;
     //   var next = this.next();
     //   if (!next.length) {
@@ -147,7 +147,7 @@ export default function HomePage(){
       </section>
       {/* End of USP */}
       {/* Testimonials */}
-      {/* <section className="pt-4 mt-4 testimonials">
+      <section className="pt-4 mt-4 testimonials">
         <div className="container">
           <h2>What our customers says</h2>
         </div>
@@ -366,7 +366,7 @@ export default function HomePage(){
             </button>
           </div>
         </div>
-      </section> */}
+      </section>
       {/* End of Testimonials */}
 
       {/* Go to top button  */}

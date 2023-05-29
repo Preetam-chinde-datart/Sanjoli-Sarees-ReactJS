@@ -97,8 +97,8 @@ export default function Shop(){
                                     <ul>
                                         <li className='mb-2'><a href={`/shop?productCategory=Traditional Sarees`}>Traditional Wear</a></li>
                                         <li className='mb-2'><a href={`/shop?productCategory=Daily%20Sarees`}>Daily Wear</a></li>
-                                        <li className='mb-2'><a href={`/shop?productCategory=Wedding%20Sarees`}>Weeding Wear</a></li>
-                                        <li className='mb-2'><a href={`/shop?productCategory=Festival%20Wear`}>Festive Wear</a></li>
+                                        <li className='mb-2'><a href={`/shop?productCategory=Wedding%20Sarees`}>Wedding Wear</a></li>
+                                        <li className='mb-2'><a href={`/shop?productCategory=Festival%20Wear`}>Festival Wear</a></li>
                                         <li className='mb-2'><a href={`/shop?productCategory=Party%20Wear`}>Party Wear</a></li>
                                         <li className='mb-2'><a href={`/shop?productCategory=Girlish%20Sarees`}>Girlish Wear</a></li>
                                     </ul>

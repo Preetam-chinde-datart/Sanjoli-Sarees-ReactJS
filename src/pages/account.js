@@ -29,7 +29,7 @@ function Profile() {
   const [user, dispatch] = useReducer(userReducer, null)
 
   const url = process.env.REACT_APP_TEST_LINK;  
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUyNDY3ODAsImV4cCI6MTY4NTI4OTk4MH0.xj0aQPs8pnKUvvJxUn3G42VS4kCkGNWqrsc9cNsvKkg';
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUzMzMwNDgsImV4cCI6MTY4NTM3NjI0OH0.6cHoebb_2iJWC_BSDkIxYgwEeACZnmrGZ6AaYg6qj9U';
   const userId = '646b52a75bba83d29383a25a'
   
   const authAxios = axios.create({
