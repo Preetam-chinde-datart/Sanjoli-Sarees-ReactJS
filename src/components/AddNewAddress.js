@@ -35,7 +35,8 @@ export function AddNewAddress(){
     ];
     
     const handleChange = (e) => {
-        setSelectedState(e.target.value);
+        // setSelectedState(e.value);
+        console.log(e);
     }
 
     return(
@@ -46,11 +47,10 @@ export function AddNewAddress(){
                 <form onSubmit={formSubmit}>
                     <input type="text" onChange={formChange} placeholder='First Name' name='firstName' className='formStyle half-width'/>
                     <input type="text" onChange={formChange} placeholder='Last Name' name='lastName' className='mb-4 formStyle half-width'/>
-                    <input type="text" onChange={formChange} placeholder='Contact Number' name='contactNumber' className='mb-4 formStyle half-width'/><br />
+                    <input type="tel" max={10} onChange={formChange} placeholder='Contact Number' name='contactNumber' className='mb-4 formStyle half-width'/><br />
                     <input type="text" onChange={formChange} placeholder='Country/Region' name='country' className='mb-4 formStyle half-width'/><br />
-                    <input type="text" onChange={formChange} placeholder='Town/City' name='city' className='formStyle half-width'/>
-                    {/* Submit dropdown */}
-                    <select id="state-select" className="state mb-4 formStyle half-width" value={selectedState} onChange={()=>{handleChange();formChange();}} placeholder="State">
+                    {/* state dropdown */}
+                    <select id="state-select" className="state mb-4 formStyle half-width" onChange={(e)=>{handleChange(e.target.value);}} placeholder="State">
                     <option value="">State</option>
                     {
                         states.map((state) => (
@@ -58,11 +58,12 @@ export function AddNewAddress(){
                         ))
                     }
                     </select>
+                    <input type="text" onChange={formChange} placeholder='Town/City' name='city' className='formStyle half-width'/>
                     <input type="text" onChange={formChange} placeholder='Street address' name='street' className='mb-4 formStyle fullWidth' />
                     <input type="text" onChange={formChange} placeholder='Landmark' name='landmark' className='formStyle half-width'/>
-                    <input type="text" onChange={formChange} placeholder='Pincode' name='pincode' className='mb-4 formStyle half-width'/>
+                    <input type="tel" onChange={formChange} placeholder='Pincode' name='pincode' className='mb-4 formStyle half-width'/>
                     <input type="text" onChange={formChange} placeholder='Additional Comments' name='comment' className='mb-4 formStyle fullWidth' />
-                    <button type='submit' className='submit ms-3 my-2'>Submit</button>
+                    <button type='submit' className='submit ms-3 my-2' >Submit</button>
                 </form>
             </div>  
             

@@ -65,6 +65,7 @@ export default function FavouriteProducts({product}){
             const response = await authAxios.delete(`/removeFavorite/${userId}`,{data:{productId : data._id}})
             console.log('fav response',response);
             alert('Product removed from Favourites successfully')
+            window.location.reload()
             
         } catch (error) {
             // alert('Favourites removal error')

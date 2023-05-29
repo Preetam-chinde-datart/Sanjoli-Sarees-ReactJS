@@ -225,3 +225,6 @@ hr{
 .ver-nav.active{
     color: var(--green);
 }
+.account-address.modal{
+    --bs-modal-width: 750px !important;
+}
