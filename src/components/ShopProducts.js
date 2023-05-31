@@ -1,18 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SuitHeart } from 'react-bootstrap-icons'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import QuickViewProduct from './QuickviewProduct'
 import axios from 'axios';
+// import Sort from './Sort';
 
 
-export default function ShopProducts({product, fav}){
+export default function ShopProducts({product, fullProduct, viewQuick}){
     
 
     // Sort by 
     const [sortBy, setSortBy] = useState(product);
-
-    // Quickview 
-    const [fullProduct, setFullProduct] = useState([])
 
 
     // Pagination 
@@ -23,37 +21,30 @@ export default function ShopProducts({product, fav}){
     const records = sortBy.slice(firstIndex, lastIndex);
     const npage = Math.ceil(sortBy.length / recordsPerPage);
     const numbers = [...Array(npage + 1).keys()].slice(1);
-
-   
-
     
-    function viewQuick(prod){
-        setFullProduct(prod)
-    }
 
     // Sorting
-    let finalSort;
-    function SortItNow(e){
-        const sarees = document.getElementById("sarees").value;
-        if(sarees === 'price-low-high'){
-            finalSort = sortBy.sort((a,b)=> a.price - b.price)
-            setSortBy(finalSort)
-            console.log('sort changing low to high');
-        }else if(sarees === 'price-high-low'){
-            finalSort = sortBy.sort((a,b)=> b.price - a.price)
-            setSortBy(finalSort)
-            console.log('sort changing high to low');
-        }else if(sarees === 'name-a-z'){
-            finalSort = sortBy.sort((a, b) => (a.productName > b.productName) ? 1: -1)
-            setSortBy(finalSort)
-            console.log('sort changing name a to z');
-        }else if(sarees === 'name-z-a'){
-            finalSort = sortBy.sort((a, b) => (a.productName < b.productName) ? 1: -1)
-            setSortBy(finalSort)
-            console.log('sort changing name z to a');
-        }
-        e.preventDefault();
-    }
+    // let finalSort;
+    // function SortItNow(){
+    //     const sarees = document.getElementById("sarees").value;
+    //     if(sarees === 'price-low-high'){
+    //         finalSort = sortBy.sort((a,b)=> a.price - b.price)
+    //         setSortBy(finalSort)
+    //         console.log('sort changing low to high');
+    //     }else if(sarees === 'price-high-low'){
+    //         finalSort = sortBy.sort((a,b)=> b.price - a.price)
+    //         setSortBy(finalSort)
+    //         console.log('sort changing high to low');
+    //     }else if(sarees === 'name-a-z'){
+    //         finalSort = sortBy.sort((a, b) => (a.productName > b.productName) ? 1: -1)
+    //         setSortBy(finalSort)
+    //         console.log('sort changing name a to z');
+    //     }else if(sarees === 'name-z-a'){
+    //         finalSort = sortBy.sort((a, b) => (a.productName < b.productName) ? 1: -1)
+    //         setSortBy(finalSort)
+    //         console.log('sort changing name z to a');
+    //     }
+    // }
 
     // For add to bag 
     const url = process.env.REACT_APP_TEST_LINK

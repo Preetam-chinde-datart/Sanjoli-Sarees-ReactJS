@@ -15,6 +15,7 @@ export default function Header(){
 
   const paramValue = window.location.pathname
 
+    const url = process.env.REACT_APP_TEST_LINK
     // LogIn
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -31,7 +32,7 @@ export default function Header(){
 
     const handleLogin = (event) => {
       event.preventDefault();
-      axios.post("https://server-dot-sanjoli-sarees-testenvironment.el.r.appspot.com/login", {
+      axios.post(`${url}/login`, {
           email: email,
           password: password,    
         })
@@ -103,7 +104,7 @@ export default function Header(){
      const handleSubmit = async (event) => {
        event.preventDefault();
        try {
-         const response = await axios.post("https://server-dot-sanjoli-sarees-testenvironment.el.r.appspot.com/register", formData);
+         const response = await axios.post(`${url}/register`, formData);
          console.log(response.data);
          setShowModal(true);
          console.log("madal1");
@@ -141,7 +142,7 @@ export default function Header(){
                     </a>
                     {/* Profile  */}
                     <div className="profile">
-                    <a data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-whatever="@mdo" className={paramValue === '/account' ? 'btn position-relative active' : 'btn position-relative'} herf="../pages/login.js">
+                    <a data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-whatever="@mdo" className={paramValue === '/account' || paramValue === '/order-history' ? 'btn position-relative active' : 'btn position-relative'} herf="../pages/login.js">
                         <Person/>
                         <span className="account"> My account</span>
                     </a>

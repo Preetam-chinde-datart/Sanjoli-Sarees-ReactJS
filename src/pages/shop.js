@@ -35,21 +35,19 @@ export default function Shop(){
         });
     },[])
 
-    
-    
-    
-    
-    // useEffect(()=>{
-    //     if(sortBy !== product){
-    //         setProduct(sortBy)
-    //         setSortBy(sortBy)
 
-    //     }
-    // },[sortBy])
+
+
+    // Quickview 
+    const [fullProduct, setFullProduct] = useState([])
+
+    function viewQuick(prod){
+        setFullProduct(prod)
+    }
     
     
 
-    // Fro price range 
+    // For price range 
     function getRangeData(){
         var get = document.getElementById('get-range').value;
         document.getElementById("put-range-data").innerHTML = `₹${get}`;
@@ -118,7 +116,7 @@ export default function Shop(){
                                     <div className="shop-products my-2">
                                         <div className="row">
                                             <div className="container">
-                                                <ShopProducts product={product}/>
+                                                <ShopProducts product={product} fullProduct={fullProduct} viewQuick={viewQuick} />
                                             </div>
                                         </div>
                                     </div>

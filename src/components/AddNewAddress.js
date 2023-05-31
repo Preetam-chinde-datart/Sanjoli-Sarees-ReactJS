@@ -29,7 +29,7 @@ export function AddNewAddress(){
             console.log(newAddress);
             const string = newAddress.toString()
             console.log(typeof(string));
-            const response = await authAxios.put(`/updateUser/${userId}`, {address : newAddress});  //{address : newAddress}
+            const response = await authAxios.put(`/updateAddress/${userId}`, {address : newAddress});  //{address : newAddress}
             console.log(response.data);
         } catch (error) {
             console.error(error.message);

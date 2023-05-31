@@ -622,6 +622,9 @@ a.backlink:hover{
 .wrap-flex{
     flex-wrap: wrap !important;
 }
+input[type=text].search{
+    background-color: var(--gray);
+}
 
 /* .facebok svg, .insta svg{
     vertical-align: -2px !important;
@@ -657,14 +660,14 @@ a.backlink:hover{
     width: 143% !important;
   } */
 
-.email-lbl,.pass-lbl
+/* .email-lbl,.pass-lbl
 {
 margin: 0rem 2.7rem !important;
  font-family: 'Source Sans Pro';
 font-size: 12px;
 color: #4B5563;
 
-}
+} */
 
 .modal-header{
     border-bottom: none !important;
@@ -690,10 +693,10 @@ color: #4B5563;
 }
 
 
-input[type=password],input[type=email]{
+/* input[type=password],input[type=email]{
     border: 1px solid #519D42;
     border-radius: 3px;
-}
+} */
 .frm-container{
     display: flex;
     flex-direction: column;
@@ -780,6 +783,7 @@ background-color: #519D42;
 input[type=text],input[type=password],input[type=email],input[type=number],input[type=tel],[textarea]:hover {
     border: 0;
     border-radius: 0;
+    background-color: white;
 }
 .frm-container{
     display: flex;

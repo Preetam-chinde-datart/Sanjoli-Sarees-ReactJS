@@ -89,7 +89,7 @@ font-size: 12px;
 color: #111827 !important; 
 font-size: 12px;
 }
-.track-btn{
+/* .track-btn{
     border-radius: 3px;
     width: 130px;
     text-decoration: none;
@@ -156,10 +156,6 @@ font-size: 12px;
     position: absolute;
     top: 53rem;
    
-}
-/* .logout{
-    height: 400px;
-    width: 400px;
 } */
 .popup {
     width: 400px;
@@ -176,7 +172,6 @@ font-size: 12px;
     transition: transform 0.4s, top 0.4s;
 }
 .order-details{
-    /* background-color:#FAFAFA; */
     padding: 20px;
     margin-bottom: 20px; 
     margin-right: -2rem;

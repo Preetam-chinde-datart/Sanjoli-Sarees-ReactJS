@@ -124,7 +124,7 @@ function Contact(){
                 <h5>Let's Talk - get in touch today!</h5>
                 {/* Name */}
                 <label htmlFor="">
-                  Name <span className="text-grey">*</span>
+                  Name <span className="text-danger ">*</span>
                 </label>
                 <input
                   type="text"
@@ -139,7 +139,7 @@ function Contact(){
                 />
                 {/* Conatact */}
                 <label htmlFor="">
-                  Contact <span className="text-greyr">*</span>
+                  Contact <span className="text-danger ">*</span>
                 </label>
                 <input
                   type="tel"
@@ -156,7 +156,7 @@ function Contact(){
                 />
                 {/* Email */}
                 <label htmlFor="">
-                  Email <span className="text-grey">*</span>
+                  Email <span className="text-danger ">*</span>
                 </label>
                 <input
                   type="email"
