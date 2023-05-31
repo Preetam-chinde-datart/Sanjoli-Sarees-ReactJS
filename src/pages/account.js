@@ -163,7 +163,6 @@ function Profile() {
                         value={user.lastName}
                       />
                       <br />
-                      <br />
                       <label htmlFor="email" className="email-lbl">
                         Email Address
                       </label>
@@ -194,7 +193,6 @@ function Profile() {
                         disabled
                         value={user.mobileNo}
                       />
-                      <br />
                       <br />
                       <button type="submit" className="submit-btn">
                         Save

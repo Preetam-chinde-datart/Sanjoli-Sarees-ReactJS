@@ -656,18 +656,7 @@ input[type=text].search{
     right: 20%;
     cursor: pointer;
   }
-  /* .pass-sign{
-    width: 143% !important;
-  } */
-
-/* .email-lbl,.pass-lbl
-{
-margin: 0rem 2.7rem !important;
- font-family: 'Source Sans Pro';
-font-size: 12px;
-color: #4B5563;
-
-} */
+  
 
 .modal-header{
     border-bottom: none !important;
@@ -693,10 +682,11 @@ color: #4B5563;
 }
 
 
-/* input[type=password],input[type=email]{
+
+#LogIn input[type=password],#LogIn input[type=email]{
     border: 1px solid #519D42;
     border-radius: 3px;
-} */
+}
 .frm-container{
     display: flex;
     flex-direction: column;
@@ -759,7 +749,7 @@ background-color: #519D42;
     color: white;
     margin: 2rem 0rem 1rem;
 }
-.email,.mob-no,.pass-sign,.pass-sign-confirm{
+.signemail,.mob-no,.pass-sign,.pass-sign-confirm{
     height: 34px;
     width: 82% !important;
     padding: 14px;
@@ -768,7 +758,7 @@ background-color: #519D42;
 
 }
 .f-name,.l-name{
-    margin: 0rem 0.27rem 1.5rem;
+    margin: 0rem 0.27rem 1.5rem !important;
     height: 34px;
     width: 39.5%;
     color: #4B5563;
@@ -780,11 +770,11 @@ background-color: #519D42;
     background-color: var(--gray);
 }
 
-input[type=text],input[type=password],input[type=email],input[type=number],input[type=tel],[textarea]:hover {
+/* #header input[type=text],input[type=password],input[type=email],input[type=number],input[type=tel],[textarea]:hover {
     border: 0;
     border-radius: 0;
     background-color: white;
-}
+} */
 .frm-container{
     display: flex;
     flex-direction: column;

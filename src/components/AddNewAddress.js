@@ -27,19 +27,17 @@ export function AddNewAddress(){
         e.preventDefault();
         try {
             console.log(newAddress);
-            const string = newAddress.toString()
-            console.log(typeof(string));
             const response = await authAxios.put(`/updateAddress/${userId}`, {address : newAddress});  //{address : newAddress}
             console.log(response.data);
+            window.location.reload()
         } catch (error) {
             console.error(error.message);
             // alert('Enter valid details')
         }
     };
 
-    // State use state 
-    const [selectedState, setSelectedState] = useState('');
     
+
     const states = [
         'Andhra Pradesh','Arunachal Pradesh', 'Assam','Bihar','Chhattisgarh','Goa','Gujarat','Haryana','Himachal Pradesh','Jharkhand','Karnataka',
         'Kerala','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Punjab','Rajasthan',

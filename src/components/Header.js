@@ -1,6 +1,4 @@
 import { SuitHeart, Person, Bag } from 'react-bootstrap-icons'
-import '../pages/login.css';
-import "bootstrap";
 import React, { useState } from "react";
 import axios from "axios";
 import { GoogleLogin } from '@react-oauth/google';
@@ -239,7 +237,7 @@ export default function Header(){
                         type="email"
                         placeholder="abc@gmail.com"
                         name="email"
-                        className="email"
+                        className="signemail"
                         id="email"
                         required
                         value={email} onChange={handleEmailChange}
