@@ -13,12 +13,6 @@ function Profile() {
     switch(action.type){
       case 'load':
         return action.payload
-      case 'updateProfile' :
-        return state
-      case 'updatePassword' :
-        return state
-      case 'updateProfileImage':
-        return state
       default:
         return state
     }
@@ -27,10 +21,11 @@ function Profile() {
   //Set user
   // const [user, setUser] = useState(null);
   const [user, dispatch] = useReducer(userReducer, null)
+  const [resetPassword, setResetPassword] = useState({})
 
   const url = process.env.REACT_APP_TEST_LINK;  
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUzMzMwNDgsImV4cCI6MTY4NTM3NjI0OH0.6cHoebb_2iJWC_BSDkIxYgwEeACZnmrGZ6AaYg6qj9U';
-  const userId = '646b52a75bba83d29383a25a'
+  const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('userId');
   
   const authAxios = axios.create({
     baseURL : url,
@@ -43,13 +38,26 @@ function Profile() {
     authAxios.get(`/getUser/${userId}`)
       .then(res => {
         dispatch({type : 'load', payload : res.data.data})
-        console.log(res.data.data);
+        // console.log(res.data.data);
       })
       .catch(error => {
         console.log(error);
       });
   }, []);
 
+  const handleChange = (event) => {
+    setResetPassword({ ...resetPassword, [event.target.name] : event.target.value });
+  };
+
+  const changePassword = async (e) => {
+    try {
+      // console.log(resetPassword);
+      await authAxios.put(`/updateUser/${userId}`, resetPassword)
+      alert('Password resetted successfully')
+    } catch (error) {
+        console.log(error.response);
+    }
+  }
   
 
 
@@ -178,7 +186,7 @@ function Profile() {
                       <br />
                       <input
                         type="number"
-                        placeholder="+91 1234567890"
+                        placeholder="9876543210"
                         name="mob_no"
                         className="mob-no"
                         id="mob-no"
@@ -258,9 +266,10 @@ function Profile() {
                   <input
                     type="password"
                     placeholder="xxxxxxxxxx"
-                    name="password"
+                    name="oldPassword"
                     className="password1"
                     id="old-pass"
+                    onChange={handleChange}
                   />
                   <br />
                   <br />
@@ -271,9 +280,10 @@ function Profile() {
                   <input
                     type="password"
                     placeholder="Enter New Password"
-                    name="password"
+                    name="newPassword"
                     className="password1"
                     id="new-pass"
+                    onChange={handleChange}
                   />
                   <br />
                   <br />
@@ -284,13 +294,13 @@ function Profile() {
                   <input
                     type="password"
                     placeholder="Enter Confirm Password"
-                    name="password"
+                    name="confPassword"
                     className="password1"
                     id="conf-pass"
                   />
                   <br />
                   <br />
-                  <button type="submit" className="submit-btn">
+                  <button type="submit" className="submit-btn" onClick={changePassword}>
                     Save
                   </button>
                 </div>

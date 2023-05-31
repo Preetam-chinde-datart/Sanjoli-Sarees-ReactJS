@@ -11,12 +11,15 @@ import Favourites from './pages/favourites'
 import Account from './pages/account'
 import Bag from './pages/bag'
 import OrderHistory from './pages/Order-History'
-import PrivacyPolicy from './pages/Privacypolicy'
-import ReturnAndReturn from './pages/Legalpolicy'
-import TermsAndConditions from './pages/Statuspolicy'
+// import PrivacyPolicy from './pages/Privacypolicy'
+// import ReturnAndReturn from './pages/Legalpolicy'
+// import TermsAndConditions from './pages/Statuspolicy'
 
 
 function App() {
+  
+
+  
 
   return (
     <>
@@ -33,9 +36,9 @@ function App() {
         <Route path='/account' element={<Account />} />
         <Route path='/bag' element={<Bag />} />
         <Route path='/order-history' element={<OrderHistory />} />
-        <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+        {/* <Route path='/privacy-policy' element={<PrivacyPolicy />} />
         <Route path='/refund-and-return' element={<ReturnAndReturn />} />
-        <Route path='/terms-and-conditions' element={<TermsAndConditions />} />
+        <Route path='/terms-and-conditions' element={<TermsAndConditions />} /> */}
 
       </Routes>
       <Footer />

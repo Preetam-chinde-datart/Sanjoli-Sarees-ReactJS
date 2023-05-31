@@ -1,3 +1,4 @@
+import axios from 'axios';
 import './QuickviewProduct.css'
 import { SuitHeart } from 'react-bootstrap-icons'
 import { GoStar } from 'react-icons/go'
@@ -11,22 +12,49 @@ export default function QuickviewProduct({wholeProd}){
     // console.log('wholeproduct ', wholeProd);
 
 
-    // switch images 
-    // let mainImage = document.getElementById('main-img')
-    // function changeImage(data){
-    //     if(data === 0){
-    //         mainImage.src = wholeProd.productImage[0];
-    //     }
-    //     if(data === 1){
-    //         mainImage.src = wholeProd.productImage[1];
-    //     }
-    //     if(data === 2){
-    //         mainImage.src = wholeProd.productImage[2];
-    //     }
-    //     if(data === 3){
-    //         mainImage.src = wholeProd.productImage[3];
-    //     }
-    // }
+    // For add to bag 
+    const url = process.env.REACT_APP_TEST_LINK
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+  
+    const authAxios = axios.create({
+        baseURL : url,
+        headers : {
+        'auth-jwt' : token,
+        },
+    })
+    
+    
+    // Add to bag
+    const addToBag = async (data) => {
+        // console.log(data._id);
+        try {
+            await authAxios.post(`/addCart/${userId}`, `productId=${data._id}`)
+            // console.log(response);
+            alert('Product added to Bag')
+        } catch (error) {
+            alert('Product already in Bag')
+            console.log(error.response.data.message);
+        }
+    }
+
+    // Add to favourites 
+    const addToFavourite = async (data) => {
+        // console.log(data._id);
+        try {
+            await authAxios.post(`/addFavorite/${userId}`, `productId=${data._id}`)
+            alert('Product added to Favourites')
+            
+        } catch (error) {
+            alert('Product already in Favourites')
+            console.log(error.response.data.message);
+        }
+    }
+
+
+
+
+
     return (
         <>
         {
@@ -78,9 +106,9 @@ export default function QuickviewProduct({wholeProd}){
                         }
 
                         <p className="text-tax small-text">Tax included</p>
-                        <button href="#" className="btn btn-primary " width="100%">Add to Bag</button>
+                        <button href="#" className="btn btn-primary " width="100%" onClick={()=>addToBag(wholeProd)}>Add to Bag</button>
                         &nbsp;&nbsp;
-                        <button href="#" className="btn btn-secondary" width='100%'><SuitHeart /> Favourites</button>
+                        <button href="#" className="btn btn-secondary" width='100%' onClick={()=>addToFavourite(wholeProd)}><SuitHeart /> Favourites</button>
                         
                     </div>
                 </div>

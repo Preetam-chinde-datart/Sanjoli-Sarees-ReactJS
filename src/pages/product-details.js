@@ -156,23 +156,9 @@ export default function ProductDetails(){
                     <div id="delivery-section" className="delivery-section d-none">
                     <h5 className="fw-bold">Delivery and return information</h5>
                     <ul>
-                        <li>Brand – LAXMIHARI</li>
-                        <li>
-                        Fancy Saree With Unstitched Blouse Having Length 5.80 M And 0.80 M
-                        respectively.
-                        </li>
-                        <li>Care Instruction – Hand Wash Only</li>
-                        <li>Saree Fabric – Fancy Material</li>
-                        <li>
-                        Soft Finished Comfortable To Wear And Easy To Take Fleets {"{"}
-                        Size-Free Size{"}"} {"{"}Saree Is Not Transparent{"}"}
-                        </li>
-                        <li>
-                        Occasions: Party, Festive, Wedding Wear, Traditional Wear. Best
-                        Gift For Your Loved Ones.
-                        </li>
-                        <li>Package Included: 1 Saree With 1 Blouse Piece</li>
-                        <li>Return If Damage Within 7days From The Date Of Delivery</li>
+                        <li>Order Once Delivered Cannot Be Return Untill Its Damage.</li>
+                        <li>Raise The Query Within 7days After Delivery.</li>
+                        <li>Return If Damage Within 7days From The Date Of Delivery.</li>
                     </ul>
                     </div>
                 </div>

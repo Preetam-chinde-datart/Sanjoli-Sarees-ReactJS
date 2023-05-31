@@ -1,3 +1,4 @@
+import axios from 'axios';
 import './ProductDetail.css'
 import { SuitHeart } from 'react-bootstrap-icons'
 import { GoStar } from 'react-icons/go'
@@ -28,6 +29,44 @@ export default function ProductDetail({wholeProd}){
             mainImage.src = wholeProd.productImage[3];
         }
 
+    }
+
+    // For add to bag and favourites
+    const url = process.env.REACT_APP_TEST_LINK
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+  
+    const authAxios = axios.create({
+        baseURL : url,
+        headers : {
+        'auth-jwt' : token,
+        },
+    })
+
+    const addToBag = async (data) => {
+        // console.log(data._id);
+        try {
+            await authAxios.post(`/addCart/${userId}`, `productId=${data._id}`)
+            // console.log(response);
+            alert('Product added to Bag')
+            
+        } catch (error) {
+            alert('Product already in Bag')
+            console.log(error.response.data.message);
+        }
+    }
+
+    // Add to favourites 
+    const addToFavourite = async (data) => {
+        // console.log(data._id);
+        try {
+            await authAxios.post(`/addFavorite/${userId}`, `productId=${data._id}`)
+            alert('Product added to Favourites')
+            
+        } catch (error) {
+            alert('Product already in Favourites')
+            console.log(error.response.data.message);
+        }
     }
     
     return (
@@ -93,9 +132,9 @@ export default function ProductDetail({wholeProd}){
                     }
 
                     <p className="text-tax small-text">Tax included</p>
-                    <button href="#" className="btn btn-primary">Add to Bag</button>
+                    <button href="#" className="btn btn-primary" onClick={()=>addToBag(wholeProd)}>Add to Bag</button>
                     &nbsp;&nbsp;
-                    <button href="#" className="btn btn-secondary"><SuitHeart /> Favourites</button>
+                    <button href="#" className="btn btn-secondary" onClick={()=>addToFavourite(wholeProd)}><SuitHeart /> Favourites</button>
                     <div className="product-description pt-4">
                     <h4>Product details</h4>
                     <hr />
