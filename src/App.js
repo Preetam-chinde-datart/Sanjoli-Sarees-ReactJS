@@ -12,6 +12,8 @@ import Account from './pages/account'
 import Bag from './pages/bag'
 import OrderHistory from './pages/Order-History'
 import OrderHistoryDetails from './pages/OrderHistoryDetails'
+import CheckOut from './pages/checkout1'
+import { useReducer, useState } from 'react';
 // import PrivacyPolicy from './pages/Privacypolicy'
 // import ReturnAndReturn from './pages/Legalpolicy'
 // import TermsAndConditions from './pages/Statuspolicy'
@@ -19,6 +21,8 @@ import OrderHistoryDetails from './pages/OrderHistoryDetails'
 
 function App() {
   
+  // for checkout or payment 
+  // const [getFinalPrice, setGetFinalPrice] = useState(null)
 
   
 
@@ -38,6 +42,7 @@ function App() {
         <Route path='/bag' element={<Bag />} />
         <Route path='/order-history' element={<OrderHistory />} />
         <Route path='/order-history-details' element={<OrderHistoryDetails />} />
+        <Route path='/checkout' element={<CheckOut />} />
 
 
         {/* <Route path='/privacy-policy' element={<PrivacyPolicy />} />

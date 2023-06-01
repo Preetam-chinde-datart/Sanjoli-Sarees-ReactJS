@@ -58,6 +58,16 @@ function Profile() {
         console.log(error.response);
     }
   }
+
+  // const replaceValueFirstName = (event) => {
+  //   const fName = document.getElementById('f-name')
+  //   console.log('fName ', fName);
+  // }
+
+  // const replaceValuelastName = (event) => {
+  //   const lName = document.getElementById('l-name')
+  //   console.log('lName ', lName);
+  // }
   
 
 
@@ -152,6 +162,8 @@ function Profile() {
                         id="f-name"
                         required
                         value={user.firstName}
+                        readOnly
+                        // onClick={replaceValueFirstName}
                       />
                       <input
                         type="text"
@@ -161,6 +173,8 @@ function Profile() {
                         id="l-name"
                         required
                         value={user.lastName}
+                        readOnly
+                        // onClick={replaceValuelastName}
                       />
                       <br />
                       <label htmlFor="email" className="email-lbl">
@@ -174,7 +188,7 @@ function Profile() {
                         className="email"
                         id="email"
                         required
-                        disabled
+                        readOnly
                         value={user.email}
                       />
                       <br />
@@ -190,13 +204,13 @@ function Profile() {
                         className="mob-no"
                         id="mob-no"
                         required
-                        disabled
+                        readOnly
                         value={user.mobileNo}
                       />
                       <br />
-                      <button type="submit" className="submit-btn">
+                      {/* <button type="submit" className="submit-btn">
                         Save
-                      </button>
+                      </button> */}
                     </form>
                   </div>
                 </div>

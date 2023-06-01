@@ -5,7 +5,7 @@ import BagProducts from '../components/BagProducts';
 
 
 
-export default function Bag(){
+export default function Bag({setGetFinalPrice}){
 
     function cartReducer(state, action){
         switch(action.type){
@@ -18,6 +18,10 @@ export default function Bag(){
 
     //Cart Reducer 
     const [cartProducts, dispatch] = useReducer(cartReducer, null)
+    // To Check Out 
+    const [totalProducts, setTotalProducts] = useState({})
+
+    
 
     const url = process.env.REACT_APP_TEST_LINK;
     const token = localStorage.getItem('token');
@@ -30,18 +34,30 @@ export default function Bag(){
         },
     })
 
+    
     useEffect(() => {
         authAxios.get(`/getCart/${userId}`)
             .then(res => {
                 dispatch({type : 'LOAD', payload : res.data.data})
-                // console.log(res.data.data);
             })
             .catch(error => {
                 console.log(error);
             });
     }, []);
 
-    
+    useEffect(()=>{
+        let array = []
+        let obj = {}
+        if(cartProducts){
+            cartProducts.items.map((data, i)=>{
+                return(
+                    array.push(data.productId._id),
+                    obj[array[i]] = '1'
+                )
+            })
+        }
+        setTotalProducts({...obj})
+    },[cartProducts])
 
 
     // add to favoutites
@@ -84,15 +100,24 @@ export default function Bag(){
 
     // summary 
     const [subTotal, setSubTotal] = useState(0)
-
     let finalTotal = 0;
     const getSubTotal = (data)=>{
         finalTotal += data
-        // data += data
-        // console.log(finalTotal/2);
         setSubTotal(finalTotal/2)
     }
+
     
+
+    // Send data to checkout 
+    let checkOutTotal;
+    // let valueRef;
+    const checkOut = (number, id) =>{
+        setTotalProducts({...totalProducts, [id] : `${number}`})
+    }
+    
+    // const login = () => {
+    //     console.log(totalProducts);
+    // }
     
 
 
@@ -115,7 +140,7 @@ export default function Bag(){
                         <div className="col-md-9 product py-2">
                             <div className="row">
                                 {/* Repeat  */}
-                                <BagProducts cartProducts={cartProducts} addToFavourites={addToFavourites} removeFromCart={removeFromCart} getSubTotal={getSubTotal} />
+                                <BagProducts cartProducts={cartProducts} addToFavourites={addToFavourites} removeFromCart={removeFromCart} getSubTotal={getSubTotal} checkOut={checkOut} />
                             </div>
                         </div>
                         <div className="col-md-3 px-1 total-price">
@@ -133,12 +158,14 @@ export default function Bag(){
                                     <p>Tax</p>
                                     <p className='tax'>₹150</p>
                                 </div>
+                                {/* <button onClick={login}  className='btn btn-primary'>Click me</button> */}
                                 <div className="final-bill">
                                     <div className="final-total d-flex justify-content-between">
                                         <h5 className='fw-bold'>Total</h5>
-                                        <h5 className='fw-bold final-total'>₹{subTotal+270}</h5>
+                                        <h5 className='fw-bold final-total'>₹{checkOutTotal = subTotal + 270}</h5>
                                     </div>
-                                    <a href="/"><button className="btn btn-primary">Checkout</button></a>
+                                    
+                                    <a href={`/checkout?valueRef=${checkOutTotal}`}><button className="btn btn-primary">Checkout</button></a>
                                 </div>
                             </div>
                         </div>
@@ -148,7 +175,7 @@ export default function Bag(){
                 }
                 
                 
-
+               
             </section>
         </>
     )

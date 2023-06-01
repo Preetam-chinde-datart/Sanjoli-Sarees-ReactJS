@@ -119,6 +119,12 @@ export default function Header(){
      const handleChange = (event) => {
        setFormData({ ...formData, [event.target.name]: event.target.value });
      };
+
+    //  Toggle login and account page 
+    let loggedIn = '';
+     if(localStorage.getItem('token')){
+        loggedIn = 'loggedIn'
+     }
  
     return(
         <>
@@ -140,7 +146,7 @@ export default function Header(){
                     </a>
                     {/* Profile  */}
                     <div className="profile">
-                    <a data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-whatever="@mdo" className={paramValue === '/account' || paramValue === '/order-history' ? 'btn position-relative active' : 'btn position-relative'} herf="../pages/login.js">
+                    <a data-bs-toggle={`modal${loggedIn}`} data-bs-target={`#loginModal${loggedIn}`} data-bs-whatever="@mdo" className={paramValue === '/account' || paramValue === '/order-history' ? 'btn position-relative active' : 'btn position-relative'} href={`/account`}>
                         <Person/>
                         <span className="account"> My account</span>
                     </a>
@@ -392,8 +398,8 @@ export default function Header(){
                     </div>
                     
                     <div className="text-center">
-                        <input type="number" placeholder="+91 1234567890"name="mobileNo"className="mob-no" id="mob-no"required
-                        value={formData.mobileNo}
+                        <input type="tel" placeholder="9876543210"name="mobileNo"className="mob-no" id="mob-no"required
+                        value={formData.mobileNo} size={10}
                         onChange={handleChange}/>
                         <br />
                         <br />

@@ -1,86 +1,126 @@
 import './checkout.css'
+// import './bag.css'
 import 'bootstrap'
+import { useState } from 'react'
+import axios from 'axios';
+// import Payment from './checkout2';
+function Checkout () {
 
-function checkout() {
+  // Collect data from URL 
+  const paramValues = window.location.search;
+  const urlParams = new URLSearchParams(paramValues);
+
+  const finalPrice = urlParams.get('valueRef')
+ 
+  // const [isChecked, setIsChecked] = useState(false);
+  const [shippingform,setshippingform]= useState (false);
+
+  const showform=()=>{
+    setshippingform(!shippingform)
+    
+  }
+ 
+  // const [check, setCheck] = useState (false)
+  const [billingAddress, setBillingAddress] = useState({})
+  const [shippingAddress, setShippingAddress] = useState({})
+  const [sameAsBilling, setSameAsBilling] = useState(false);
+
+  
+  const handleBillingChange = (event) => {
+    const { name, value } = event.target;
+    setBillingAddress((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+  const handleShippingChange = (event) => {
+    const { name, value } = event.target;
+    setShippingAddress((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+  
+  
+  const handleCheckboxChange = () => {
+    setSameAsBilling(!sameAsBilling);
+    if (!sameAsBilling) {
+      setShippingAddress(billingAddress);
+    } else {
+      setShippingAddress({
+        firstName: '',
+        lastName: '',
+        address: '',
+        city: '',
+        state: '',
+        zip: ''
+      });
+    }
+  };
+
+
+
+  const formChange = (e) => {
+      setBillingAddress({ ...billingAddress, [e.target.name] : e.target.value });
+  }
+  const url = process.env.REACT_APP_TEST_LINK;  
+  const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('userId');
+  
+  const authAxios = axios.create({
+    baseURL : url,
+    headers : {
+      'auth-jwt' : token,
+    },
+  })
+
+
+  const formSubmit = async (e) => {
+      // e.preventDefault();
+      try {
+          const response = await authAxios.put(`/updateAddress/${userId}`,{address: {billingAddress:{billingAddress }}});
+          console.log(response.data);
+          console.log("Billing");
+          // alert("Address added successfully")
+          console.log(response.data.status)
+      } catch (error) {
+          console.log(error);
+          // alert('Enter valid details')
+      }
+      
+      try{
+      const response = await authAxios.put(`/updateAddress/${userId}`,{address: {shippingAddress:{ shippingAddress}}} );
+      console.log(response.data);
+      console.log("Shipping");
+      // alert("Address added successfully")
+      console.log(response.data.status)
+      // window.location.href='Payment'
+      } 
+      catch (error) {
+          console.log(error);
+          // alert('Enter valid details')
+      }
+  };
+
+  // State use state 
+  const [selectedState, setSelectedState] = useState('');
+  
+  const states = [
+      'Andhra Pradesh','Arunachal Pradesh', 'Assam','Bihar','Chhattisgarh','Goa','Gujarat','Haryana','Himachal Pradesh','Jharkhand','Karnataka',
+      'Kerala','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Punjab','Rajasthan',
+      'Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal'
+  ];
+  
+  const handleChange = (e) => {
+      // setSelectedState(e.value);
+      console.log(e);
+  } 
+  
+
+
   return (
     <>
-      <section id="header">
-        <nav className="navbar navbar-expand-lg navbar-light bg-white">
-          <div className="container">
-            {/* Togeller */}
-            <button
-              className="navbar-toggler border-0"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navMenu"
-            >
-              <span className="navbar-toggler-icon" />
-            </button>
-            {/* Brand  */}
-            <a href="index.html" className="navbar-brand">
-              {/* <img src="/images/logo.png" alt="Company Logo" /> */}
-              <img src={require("../images/logo.png")} alt="" />
-            </a>
-            {/* Profile  */}
-            <div className="profile">
-              <button className="btn position-relative">
-                <i className="bi bi-person" />
-                <span className="account"> Account</span>
-              </button>
-              <button className="btn position-relative">
-                <i className="bi bi-heart" />
-                <span className="favourites"> Favourites</span>
-              </button>
-              <button className="btn position-relative">
-                <i className="bi bi-bag" />
-                <span className="position-absolute start-60 translate-middle badge bg-primary bag-user">
-                  2
-                </span>
-                <span className="bag ps-md-2"> Bag</span>
-              </button>
-            </div>
-          </div>
-        </nav>
-        <nav className="navbar navbar-expand-lg navbar-light bg-white">
-          <div className="container">
-            {/* Menu  */}
-            <div className="collapse navbar-collapse" id="navMenu">
-              <ul className="navbar-nav">
-                {/* mx-auto text-center */}
-                <li className="nav-item">
-                  <a href="/" className="nav-link active">
-                    Home
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a href="/about.html" className="nav-link">
-                    About
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a href="/shop.html" className="nav-link">
-                    Shop
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a href="/contact.html" className="nav-link">
-                    Contact
-                  </a>
-                </li>
-              </ul>
-            </div>
-            {/* Search Bar */}
-            <div className="serch-bar d-none d-md-block">
-              <input
-                className="search"
-                type="text"
-                defaultValue="Search for products"
-              />
-              {/* <img id="mglass" src="search.png"> */}
-            </div>
-          </div>
-        </nav>
-      </section>
+      
 
       <section id="progress-bar">
         <br /> <br />
@@ -121,188 +161,149 @@ function checkout() {
         </div>
       </section>
 
-      <section id="billing-section">
-        <div className="container d-flex mt-5">
-          <div className="col-md-6">
-            <div className="billing-part">
-              <form
-                className="Add-address"
-                id="Add-address "
-                action="https://server-dot-sanjoli-sarees-testenvironment.el.r.appspot.com/"
-                method="post"
-              >
-                <div className="container frm-con">
-                  <h5 className='h5'>Billing Details</h5>
-                  <p className='head'>Please fill in your billing details where you want the order
-                    to be delivered.</p>
-                  <br />
-
-                  <div className="text-center">
-                    <input
-                      type="text"
-                      placeholder="First Name"
-                      name="firstName"
-                      className="f-name"
-                      id="f-name"
-                      required
-                    />
-                    <input
-                      type="text"
-                      placeholder="Last Name"
-                      name="lastName"
-                      className="l-name"
-                      id="l-name"
-                    //   value={""}
-                      required
-                    />
-                  </div>
-
-                  <div className="text-center">
-                    <input
-                      type="number"
-                      placeholder="Contact Number"
-                      name="contactNumber"
-                      className="contactNumber"
-                      id="contactNumber"
-                      required
-                    />
-                    <br />
-                    <br />
-                  </div>
-
-                  <div className="text-center">
-                    <input
-                      type="text"
-                      placeholder=" Country/Region"
-                      name="country"
-                      className="country"
-                      id="country"
-                      required
-                    />
-                    <br />
-                    <br />
-                  </div>
-
-                  <div className="text-center">
-                    <input
-                      type=""
-                      placeholder="Town/City"
-                      name="town"
-                      className="town"
-                      id="town"
-                      required
-                    />
-
-                    <input
-                      type=""
-                      placeholder="State"
-                      name="state"
-                      className="state"
-                      id="state"
-                      required
-                    />
-                    <br />
-                    {/* <br /> */}
-                  </div>
-
-                  <div className="text-center">
-                    <input
-                      type="text"
-                      placeholder="Street Address"
-                      name="streetAdress"
-                      className="streetAdress"
-                      id=""
-                    />
-                    <br />
-                    <br />
-                  </div>
-
-                  <div className="text-center">
-                    <input
-                      type="text"
-                      placeholder="Landmark"
-                      name="landMark"
-                      className="landMark"
-                      id="landMark"
-                    />
-
-                    <input
-                      type="number"
-                      placeholder="Pincode"
-                      name="pinCode"
-                      className="pinCode"
-                      id="pinCode"
-                    />
-                  </div>
-                  <div className="text-center">
-                    <input
-                      type="text"
-                      placeholder="Additional comment"
-                      name="additionalCommit"
-                      className="additionalCommit"
-                      id="additionalCommit"
-                    />
-                    <br />
-                  </div>
-
-                  <div className="text-center">
-                    <button type="submit" className="submit-btn text-center">
-                      Save
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-
-
-          <div className="col-md-6">
-            <div className="order-part">
-           
-               <br></br>
-                  {/* vertical navigation */}
-                  <h4>Summary</h4>
-                  <br />
-                  <div className="container d-flex">
-                    <div className="col-md-4">
-                      <h6>Subtotal</h6>
-                      <hr />
-                      <h6>Shipping </h6>
-                      <hr />
-                      <h6>Taxes</h6>
-                      <hr />
-                      
-                     
-                      <h5>Total</h5>
+     
+    <div className="container d-flex mt-5">
+        <div className="col-md-9 billing-address">
+              <section className='billing'>
+              <h4>Add billing address</h4>
+            <p>Please fill in your billing details where you want the order to be delivered.</p>
+            <div className="checkoutadd-form mt-4">
+                <form onSubmit={formSubmit}>
+                    <input type="text"  value={billingAddress.firstName} onChange={handleBillingChange} placeholder='First Name' name='firstName' className='formStyle half-width'/>
+                    <input type="text"  value={billingAddress.lastName} onChange={handleBillingChange} placeholder='Last Name' name='lastName' className='mb-4 formStyle half-width'/>
+                    <input type="tel" max={10}  value={billingAddress.contactNumber} onChange={handleBillingChange} placeholder='Contact Number' name='contactNumber' className='mb-4 formStyle half-width'/><br />
+                    <input type="text" value={billingAddress.country} onChange={handleBillingChange}placeholder='Country/Region' name='country' className='mb-4 formStyle half-width'/><br />
+                    {/* state dropdown */}
+                    <select id="state-select" className="state mb-4 formStyle half-width" value={billingAddress.state} onChange={handleBillingChange} placeholder="State">
+                    <option value="">State</option>
+                    {
+                        states.map((state) => (
+                            <option key={state} value={state}>{state}</option>
+                        ))
+                    }
+                    </select>
+                    <input type="text" value={billingAddress.city} onChange={handleBillingChange} placeholder='Town/City' name='city' className='formStyle half-width'/>
+                    <input type="text" value={billingAddress.street} onChange={handleBillingChange} placeholder='Street address' name='street' className='mb-4 formStyle fullWidth' />
+                    <input type="text"value={billingAddress.landmark} onChange={handleBillingChange} placeholder='Landmark' name='landmark' className='formStyle half-width'/>
+                    <input type="tel"value={billingAddress.pincode} onChange={handleBillingChange} placeholder='Pincode' name='pincode' className='mb-4 formStyle half-width'/>
+                    <input type="text"value={billingAddress.comment} onChange={handleBillingChange} placeholder='Additional Comments' name='comment' className='mb-4 formStyle fullWidth' />
+                    </form>
                     </div>
-                    <div className="col-md-4" />
-                    <div className="col-md-4">
-                      <p>₹9,000</p>
-                      <p>₹120</p>
-                      <p>₹0</p>
-                     
-                      <label htmlFor="Total-price">
-                        <h5>
-                          <b>₹9,120</b>
-                        </h5>
-                      </label>
+                    <div className='shipping-link'>
+                      <button onClick={showform} className='text-decoration-underline' >Shipping Address</button>
                     </div>
-                  
-                  </div>
                  
-                  
-                    <br />
-                    <div className="col-md-12 text-center">
-                      <button type="submit" className="checkout-btn" style={{ width: 320 }}>Place Order</button>
-                    </div>
-               
-                <b></b>
-             
-            </div>
+              </section>
+
+              
+                
+                 {shippingform && (
+                  <section id="Shipping">
+
+                <div className='check'>
+                <input 
+                        type="checkbox"
+                        onChange={handleCheckboxChange}
+                      checked={sameAsBilling}
+                         /> <label htmlFor='checkbox' className=''>Shipping  Address Is Same As Billing Address</label>
+                        
+                 </div>
+                  <h4>Add Shipping address</h4>
+            {/* <p>Please fill in your billing details where you want the order to be delivered.</p> */}
+            {sameAsBilling ?
+            <div className="checkoutadd-form mt-4">
+         
+            <form onSubmit={formSubmit}>
+                <input type="text"  value={sameAsBilling ? `${billingAddress.firstName}` : ''}  placeholder='First Name' name='firstName' className='formStyle half-width'/>
+                <input type="text" value={sameAsBilling ? `${billingAddress.lastName}` : ''}  placeholder='Last Name' name='lastName' className='mb-4 formStyle half-width'/>
+                <input type="tel" max={10}  value={sameAsBilling ? `${billingAddress.contactNumber}` : ''} placeholder='Contact Number' name='contactNumber' className='mb-4 formStyle half-width'/><br />
+                <input type="text" value={sameAsBilling ? `${billingAddress.country}` : ''}  placeholder='Country/Region' name='country' className='mb-4 formStyle half-width'/><br />
+                {/* state dropdown */}
+                <select id="state-select" className="state mb-4 formStyle half-width" value={sameAsBilling ? `${billingAddress.state}` : ''} placeholder="State">
+                <option value="">State</option>
+                {
+                    states.map((state) => (
+                        <option key={state} value={state}>{state}</option>
+                    ))
+                }
+                </select>
+                <input type="text" value={sameAsBilling ? `${billingAddress.city}` : ''} placeholder='Town/City' name='city' className='formStyle half-width'/>
+                <input type="text" value={sameAsBilling ? `${billingAddress.street}` : ''} placeholder='Street address' name='street' className='mb-4 formStyle fullWidth' />
+                <input type="text" value={sameAsBilling ? `${billingAddress.landmark}` : ''} placeholder='Landmark' name='landmark' className='formStyle half-width'/>
+                <input type="tel" value={sameAsBilling ? `${billingAddress.pincode}` : ''} placeholder='Pincode' name='pincode' className='mb-4 formStyle half-width'/>
+                <input type="text" value={sameAsBilling ? `${billingAddress.comment}` : ''} placeholder='Additional Comments' name='comment' className='mb-4 formStyle fullWidth' />
+                {/* <button type='submit' className='submit ms-3 my-2' >Submit</button> */}
+            </form>
+      
+        </div> 
+
+        :
+
+        <div className="checkoutadd-form mt-4">
+         
+                <form onSubmit={formSubmit}>
+                    <input type="text"    value={shippingAddress.firstName} onChange={(e)=>{handleShippingChange(e);}}   placeholder='First Name' name='firstName' className='formStyle half-width'/>
+                    <input type="text"   value={shippingAddress.lastName} onChange={(e)=>{handleShippingChange(e);}}   placeholder='Last Name' name='lastName' className='mb-4 formStyle half-width'/>
+                    <input type="tel" max={10}   value={shippingAddress.contactNumber} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Contact Number' name='contactNumber' className='mb-4 formStyle half-width'/><br />
+                    <input type="text"   value={shippingAddress.country} onChange={(e)=>{handleShippingChange(e);}}   placeholder='Country/Region' name='country' className='mb-4 formStyle half-width'/><br />
+                    {/* state dropdown */}
+                    <select id="state-select" className="state mb-4 formStyle half-width"  value={shippingAddress.state} onChange={(e)=>{handleShippingChange(e);}}  placeholder="State">
+                    <option value="">State</option>
+                    {
+                        states.map((state) => (
+                            <option key={state} value={state}>{state}</option>
+                        ))
+                    }
+                    </select>
+                    <input type="text"   value={shippingAddress.city} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Town/City' name='city' className='formStyle half-width'/>
+                    <input type="text"   value={shippingAddress.street} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Street address' name='street' className='mb-4 formStyle fullWidth' />
+                    <input type="text"   value={shippingAddress.landmark} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Landmark' name='landmark' className='formStyle half-width'/>
+                    <input type="tel"  value={shippingAddress.pincode} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Pincode' name='pincode' className='mb-4 formStyle half-width'/>
+                    <input type="text"   value={shippingAddress.comment} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Additional Comments' name='comment' className='mb-4 formStyle fullWidth' />
+                    {/* <button type='submit' className='submit ms-3 my-2' >Submit</button> */}
+                </form>
+          
+            </div> 
+
+            }
+            
+       
+             </section>
+                     )} 
+
+      </div>
+         
+           <div className="col-md-3 order">
+           <section id="order">
+           <div className="summary p-3">
+                                <h3 className='mb-5'>Summary</h3>
+                                <div className="sub-total d-flex justify-content-between">
+                                    <p>Subtotal</p>
+                                    <p className='sub-total'>₹{finalPrice - 270}</p>
+                                </div>
+                                <div className="shipping d-flex justify-content-between">
+                                    <p>Shipping</p>
+                                    <p className='shipping'>₹120</p>
+                                </div>
+                                <div className="tax d-flex justify-content-between">
+                                    <p>Tax</p>
+                                    <p className='tax'>₹150</p>
+                                </div>
+                                <div className="final-bill">
+                                    <div className="final-total d-flex justify-content-between">
+                                        <h5 className='fw-bold'>Total</h5>
+                                        <h5 className='fw-bold final-total'>₹{finalPrice}</h5>
+                                    </div>
+                              <button className=" checkout-btn " onClick={formSubmit}>Checkout</button>
+                                </div>
+                            </div>
+           
+              </section>
+
           </div>
-        </div>
-      </section>
+         
+      </div>
     </>
   );
 }
-export  default checkout;
+export  default Checkout;
