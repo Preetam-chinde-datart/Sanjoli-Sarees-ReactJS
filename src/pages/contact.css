@@ -78,3 +78,13 @@ iframe{
     overflow:hidden;
     background:none!important;
 }
+.contact-heading a:hover{
+    color: var(--dark-gray);
+}
+.contact a.backlink{
+  color: var(--dark-gray);
+  text-decoration: none;
+}
+.contact a.backlink:hover{
+  color: var(--dark-gray);
+}

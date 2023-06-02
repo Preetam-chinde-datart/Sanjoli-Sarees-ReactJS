@@ -10,11 +10,11 @@ export default function Products({prodCat}){
 
     // Products 
     const [products , setProducts] = useState([])
-    const url = process.env.REACT_APP_TEST_LINK
 
     // For add to bag 
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUzMzMwNDgsImV4cCI6MTY4NTM3NjI0OH0.6cHoebb_2iJWC_BSDkIxYgwEeACZnmrGZ6AaYg6qj9U';
-    const userId = '646b52a75bba83d29383a25a'
+    const url = process.env.REACT_APP_TEST_LINK
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
   
     const authAxios = axios.create({
         baseURL : url,
@@ -32,14 +32,6 @@ export default function Products({prodCat}){
             // alert(err)
             console.log("Server not started");
         });
-
-        // authAxios.get(`/getCart/${userId}`)
-        // .then(res => {
-        //     console.log(res.data.data);
-        // })
-        // .catch(error => {
-        //     console.log(error);
-        // });
 
     },[])
     // console.log(products);
@@ -69,17 +61,35 @@ export default function Products({prodCat}){
     function viewQuick(prod){
         setFullProduct(prod)
     }
+
+    
     
     
     // Add to bag
     const addToBag = async (data) => {
-        console.log(data._id);
+        // console.log(data._id);
         try {
             const response = await authAxios.post(`/addCart/${userId}`, `productId=${data._id}`)
             console.log(response);
+            alert('Product added to bag')
+
             
         } catch (error) {
-            alert('Product already in Bag')
+            alert(error.response.data.message)
+            console.log(error.response.data.message);
+        }
+    }
+
+    // Add to favourites 
+    const addToFavourite = async (data) => {
+        // console.log(data._id);
+        try {
+            const response = await authAxios.post(`/addFavorite/${userId}`, `productId=${data._id}`)
+            console.log(response);
+            alert('Product added to bag')
+            
+        } catch (error) {
+            alert(error.response.data.message)
             console.log(error.response.data.message);
         }
     }
@@ -101,7 +111,7 @@ export default function Products({prodCat}){
                                     <a href={prodRef}>
                                         <img src={a.productImage[0]} alt="Latest Product" />
                                     </a>
-                                    <button className="card-btn">
+                                    <button className="card-btn" onClick={()=>addToFavourite(a)}>
                                         <SuitHeart />
                                     </button>
                                     <button type="button" className=" quick-view" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onClick={(e)=>viewQuick(a)} >Quick view</button>
@@ -139,7 +149,7 @@ export default function Products({prodCat}){
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <div className='fs-2 fw-bold'>{fullProduct.productName}</div>
+                            {/* <div className='fs-2 fw-bold'>{fullProduct.productName}</div> */}
                             <button
                                 type="button"
                                 className="btn-close"

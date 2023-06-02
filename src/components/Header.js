@@ -1,6 +1,4 @@
 import { SuitHeart, Person, Bag } from 'react-bootstrap-icons'
-import '../pages/login.css';
-import "bootstrap";
 import React, { useState } from "react";
 import axios from "axios";
 import { GoogleLogin } from '@react-oauth/google';
@@ -13,6 +11,9 @@ import EyeOff from "../images/EyeOff.png"
 
 export default function Header(){
 
+  const paramValue = window.location.pathname
+
+    const url = process.env.REACT_APP_TEST_LINK
     // LogIn
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -29,7 +30,7 @@ export default function Header(){
 
     const handleLogin = (event) => {
       event.preventDefault();
-      axios.post("https://server-dot-sanjoli-sarees-testenvironment.el.r.appspot.com/login", {
+      axios.post(`${url}/login`, {
           email: email,
           password: password,    
         })
@@ -101,7 +102,7 @@ export default function Header(){
      const handleSubmit = async (event) => {
        event.preventDefault();
        try {
-         const response = await axios.post("https://server-dot-sanjoli-sarees-testenvironment.el.r.appspot.com/register", formData);
+         const response = await axios.post(`${url}/register`, formData);
          console.log(response.data);
          setShowModal(true);
          console.log("madal1");
@@ -118,6 +119,12 @@ export default function Header(){
      const handleChange = (event) => {
        setFormData({ ...formData, [event.target.name]: event.target.value });
      };
+
+    //  Toggle login and account page 
+    let loggedIn = '';
+     if(localStorage.getItem('token')){
+        loggedIn = 'loggedIn'
+     }
  
     return(
         <>
@@ -139,16 +146,16 @@ export default function Header(){
                     </a>
                     {/* Profile  */}
                     <div className="profile">
-                    <a data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-whatever="@mdo" className='account-link' herf="../pages/login.js">
+                    <a data-bs-toggle={`modal${loggedIn}`} data-bs-target={`#loginModal${loggedIn}`} data-bs-whatever="@mdo" className={paramValue === '/account' || paramValue === '/order-history' ? 'btn position-relative active' : 'btn position-relative'} href={`/account`}>
                         <Person/>
-                        <span className="account"> Account</span>
+                        <span className="account"> My account</span>
                     </a>
-                    <a href='/favourites' className="btn position-relative" id='favourites'>
+                    <a href='/favourites' className={paramValue === '/favourites' ? 'btn position-relative active' : 'btn position-relative'} id='favourites'>
                         <SuitHeart />
                         {/* <span className="position-absolute start-60 translate-items badge bg-color bag-user">2</span> */}
                         <span className="favourites"> Favourites</span>
                     </a>
-                    <a href='/bag' className="btn position-relative" id='bag'>
+                    <a href='/bag' className={paramValue === '/bag' ? 'btn position-relative active' : 'btn position-relative'} id='bag'>
                         <Bag />
                         <span className="position-absolute start-60 translate-items badge bg-color bag-user">2</span>
                         <span className="bag ps-md-2"> Bag</span>
@@ -163,16 +170,16 @@ export default function Header(){
                     <ul className="navbar-nav">
                         {/* mx-auto text-center */}
                         <li className="nav-item">
-                        <a href="/" className="nav-link active">Home</a>
+                        <a href="/" className={paramValue === '/' ? 'nav-link active' : 'nav-link'}>Home</a>
                         </li>
                         <li className="nav-item">
-                        <a href="/about" className="nav-link ">About</a>
+                        <a href="/about" className={paramValue === '/about' ? 'nav-link active' : 'nav-link'}>About</a>
                         </li>
                         <li className="nav-item">
-                        <a href="/shop" className="nav-link ">Shop</a>
+                        <a href="/shop" className={paramValue === '/shop' ? 'nav-link active' : 'nav-link'}>Shop</a>
                         </li>
                         <li className="nav-item">
-                        <a href="/contact" className="nav-link ">Contact</a>
+                        <a href="/contact" className={paramValue === '/contact' ? 'nav-link active' : 'nav-link'}>Contact</a>
                         </li>
                     </ul>
                     </div>
@@ -236,7 +243,7 @@ export default function Header(){
                         type="email"
                         placeholder="abc@gmail.com"
                         name="email"
-                        className="email"
+                        className="signemail"
                         id="email"
                         required
                         value={email} onChange={handleEmailChange}
@@ -391,8 +398,8 @@ export default function Header(){
                     </div>
                     
                     <div className="text-center">
-                        <input type="number" placeholder="+91 1234567890"name="mobileNo"className="mob-no" id="mob-no"required
-                        value={formData.mobileNo}
+                        <input type="tel" placeholder="9876543210"name="mobileNo"className="mob-no" id="mob-no"required
+                        value={formData.mobileNo} size={10}
                         onChange={handleChange}/>
                         <br />
                         <br />

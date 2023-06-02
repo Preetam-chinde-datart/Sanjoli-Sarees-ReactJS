@@ -13,12 +13,6 @@ function Profile() {
     switch(action.type){
       case 'load':
         return action.payload
-      case 'updateProfile' :
-        return state
-      case 'updatePassword' :
-        return state
-      case 'updateProfileImage':
-        return state
       default:
         return state
     }
@@ -27,10 +21,12 @@ function Profile() {
   //Set user
   // const [user, setUser] = useState(null);
   const [user, dispatch] = useReducer(userReducer, null)
+  const [resetPassword, setResetPassword] = useState({})
+  // const [removeAdd, setRemoveAdd] = useState({})
 
   const url = process.env.REACT_APP_TEST_LINK;  
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUzMzMwNDgsImV4cCI6MTY4NTM3NjI0OH0.6cHoebb_2iJWC_BSDkIxYgwEeACZnmrGZ6AaYg6qj9U';
-  const userId = '646b52a75bba83d29383a25a'
+  const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('userId');
   
   const authAxios = axios.create({
     baseURL : url,
@@ -50,6 +46,54 @@ function Profile() {
       });
   }, []);
 
+  const handleChange = (event) => {
+    setResetPassword({ ...resetPassword, [event.target.name] : event.target.value });
+  };
+
+  const changePassword = async (e) => {
+    try {
+      // console.log(resetPassword);
+      await authAxios.put(`/updateUser/${userId}`, resetPassword)
+      alert('Password resetted successfully')
+      window.location.reload()
+    } catch (error) {
+        alert('Password resetting error')
+        console.log(error.response);
+    }
+  }
+
+  const changePass = document.getElementById('toggle-password')
+  const togglePassword = () => {
+    let value = `${changePass.classList.value}`
+    if(value == 'container d-flex d-none'){
+      changePass.classList.remove('d-none')
+      changePass.classList.add('d-block')
+    }else if(value == 'container d-flex d-block'){
+      changePass.classList.remove('d-block')
+      changePass.classList.add('d-none')
+    }
+    // console.log('change pass ');
+  }
+  let whichAdd = '';
+  const removeAddress = async (data,id)=>{
+    try {
+      // console.log(newAddress);
+      
+      if(id == 0){
+        whichAdd = 'billing'
+      }else if(id == 1){
+        whichAdd = 'shipping'
+      }
+      const response = await authAxios.put(`/updateAddress/${userId}`, {removeAddress : {[whichAdd] : data}});  
+      alert('address Removed successfully')
+      console.log(response);
+      window.location.reload()
+    } catch (error) {
+      console.log(error.response.data.msg);
+      // alert('Address removal error')
+    }
+  }
+  
   
 
 
@@ -57,15 +101,17 @@ function Profile() {
   return (
     <>
       <section className="account-section">
+        {
+        user
+        ?
+        <>
         <div className='container mt-3'>
           <a href='/' className='backlink'>&lt; Back</a>
           <div className='page-heading mb-3 pb-3'>
             <h2>My Account</h2>
           </div>
         </div>
-      {
-        user
-        ?
+      
         <div className="container d-md-flex ">
           <div className="left-div">
             {/* vertical navigation */}
@@ -89,9 +135,11 @@ function Profile() {
                 </li>
                 <li className="logout">
                   <MdOutlineLogout />
-                  <button className="ver-nav">
-                    Logout
-                  </button>
+                  <a href="/logout">
+                    <button className="ver-nav">
+                      Logout
+                    </button>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -99,7 +147,7 @@ function Profile() {
           <div className="right-div">
             <div className="container d-flex">
               <div className="col-md-4">
-                <div className="my-details">
+                <div className="my-details mb-4">
                   <h3>My Profile</h3>
                 </div>
               </div>
@@ -112,7 +160,7 @@ function Profile() {
             </div>
             <div className="pesonal-info">
               <div className="container">
-                <div className="h4">Personal Information</div>
+                <div className="fs-4">Personal Information</div>
                 <hr />
                 <div className="container d-flex">
                   <div className="col-md-6">
@@ -144,6 +192,8 @@ function Profile() {
                         id="f-name"
                         required
                         value={user.firstName}
+                        readOnly
+                        // onClick={replaceValueFirstName}
                       />
                       <input
                         type="text"
@@ -153,8 +203,9 @@ function Profile() {
                         id="l-name"
                         required
                         value={user.lastName}
+                        readOnly
+                        // onClick={replaceValuelastName}
                       />
-                      <br />
                       <br />
                       <label htmlFor="email" className="email-lbl">
                         Email Address
@@ -167,7 +218,7 @@ function Profile() {
                         className="email"
                         id="email"
                         required
-                        disabled
+                        readOnly
                         value={user.email}
                       />
                       <br />
@@ -178,19 +229,18 @@ function Profile() {
                       <br />
                       <input
                         type="number"
-                        placeholder="+91 1234567890"
+                        placeholder="9876543210"
                         name="mob_no"
                         className="mob-no"
                         id="mob-no"
                         required
-                        disabled
+                        readOnly
                         value={user.mobileNo}
                       />
                       <br />
-                      <br />
-                      <button type="submit" className="submit-btn">
+                      {/* <button type="submit" className="submit-btn">
                         Save
-                      </button>
+                      </button> */}
                     </form>
                   </div>
                 </div>
@@ -204,17 +254,36 @@ function Profile() {
               <hr />
               <div className="container d-flex">
                 {
-                  user.addresses.map((data, i)=>{
+                  user.addresses.billing.map((data, i)=>{
                     return(
                       <>
                         <div className="col-md-4 px-2">
                           <div className="address-container">
                             <h5>{data.firstName} {data.lastName}</h5>
-                            <p className='text-capitalize'>{data.street}, {data.city}, {data.pincode}.<br /> 
-                            State: {data.state}, <br/> Country: {data.country} </p>
-                            <p>Phone: {data.contactNumber}</p>
-                            <a href="#edit">Edit |</a>
-                            <a href="#remove"> Remove </a>
+                            <p className='text-capitalize'>{data.street}, {data.city}, {data.pincode}. 
+                            State: {data.state},  Country: {data.country} </p>
+                            {/* <p>Phone: {data.contactNumber}</p> */}
+                            {/* <a href="#edit">Edit |</a> */}
+                            <button onClick={()=>{removeAddress(data,0)}}> Remove </button>
+                            {/* <a href="#set-default"> Set As Default</a> */}
+                          </div>
+                        </div>
+                      </>
+                    )
+                  })
+                }
+                {
+                  user.addresses.shipping.map((data, i)=>{
+                    return(
+                      <>
+                        <div className="col-md-4 px-2">
+                          <div className="address-container">
+                            <h5>{data.firstName} {data.lastName}</h5>
+                            <p className='text-capitalize'>{data.street}, {data.city}, {data.pincode}. 
+                            State: {data.state},  Country: {data.country} </p>
+                            {/* <p>Phone: {data.contactNumber}</p> */}
+                            {/* <a href="#edit">Edit |</a> */}
+                            <button onClick={()=>{removeAddress(data,1)}}> Remove </button>
                             {/* <a href="#set-default"> Set As Default</a> */}
                           </div>
                         </div>
@@ -228,7 +297,6 @@ function Profile() {
                   <button type="button" className=" quick-view" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
                     <FiPlus /> <br /> Add New Address
                   </button>
-                      
                   </div>
                 </div>
               </div>
@@ -240,13 +308,14 @@ function Profile() {
               </div> */}
             </div>
             <div className="password-info">
-              <div className="container">
-                <br />
-                <br />
-                <div className="h4">Security and Password</div>
+              <div className="container d-flex justify-content-between mt-5">
+                <div className="h4 mb-0">Security and Password</div>
+                <div className="">
+                  <button className='btn btn-primary' onClick={togglePassword}>Toggle Password Change</button>
+                </div>
               </div>
               <hr />
-              <div className="container d-flex">
+              <div className="container d-flex d-none" id='toggle-password'>
                 <div className="col-md-6">
                   <h5>Change Password</h5>
                 </div>
@@ -258,9 +327,10 @@ function Profile() {
                   <input
                     type="password"
                     placeholder="xxxxxxxxxx"
-                    name="password"
+                    name="oldPassword"
                     className="password1"
                     id="old-pass"
+                    onChange={handleChange}
                   />
                   <br />
                   <br />
@@ -271,9 +341,10 @@ function Profile() {
                   <input
                     type="password"
                     placeholder="Enter New Password"
-                    name="password"
+                    name="newPassword"
                     className="password1"
                     id="new-pass"
+                    onChange={handleChange}
                   />
                   <br />
                   <br />
@@ -284,13 +355,13 @@ function Profile() {
                   <input
                     type="password"
                     placeholder="Enter Confirm Password"
-                    name="password"
+                    name="confPassword"
                     className="password1"
                     id="conf-pass"
                   />
                   <br />
                   <br />
-                  <button type="submit" className="submit-btn">
+                  <button type="submit" className="submit-btn" onClick={changePassword}>
                     Save
                   </button>
                 </div>
@@ -301,7 +372,7 @@ function Profile() {
 
 
           {/* Model newAddress */}
-          <div className="modal fade" id="exampleModal" tabIndex={-1}  aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal fade account-address" id="exampleModal" tabIndex={-1}  aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
@@ -323,6 +394,7 @@ function Profile() {
 
 
         </div>
+        </>
       :
       <></>
       }

@@ -3,7 +3,7 @@ import SelectQuantity from "./SelectQuantity"
 
 
 
-const BagProducts = ({cartProducts, addToFavourites, removeFromCart, getSubTotal})=>{
+const BagProducts = ({cartProducts, addToFavourites, removeFromCart, getSubTotal, checkOut})=>{
 
 
     return(
@@ -33,7 +33,7 @@ const BagProducts = ({cartProducts, addToFavourites, removeFromCart, getSubTotal
                                             {/* Product Info  */}
                                             <div className="col-md-6 ps-2 bag-product-info">
                                                 <h4 className="prod-name fw-bold">{a.productId.productName}</h4>
-                                                <p className="prod-category">Category - {a.productId.productCategory}</p>
+                                                <p className="prod-category">{a.productId.productCategory}</p>
                                                 {
                                                     a.productId.discountedPrice 
                                                     ? 
@@ -52,7 +52,7 @@ const BagProducts = ({cartProducts, addToFavourites, removeFromCart, getSubTotal
                                             </div>
                                             {/* Quantity and Price  */}
                                             <div className="col-md-6 quantity-price">
-                                                <SelectQuantity currentPrice={currentPrice} id={a.productId._id} getSubTotal={getSubTotal} />
+                                                <SelectQuantity checkOut={checkOut} currentPrice={currentPrice} id={a.productId._id} getSubTotal={getSubTotal} />
                                             </div>
                                         </div>
                                     </div>

@@ -1,18 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SuitHeart } from 'react-bootstrap-icons'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import QuickViewProduct from './QuickviewProduct'
 import axios from 'axios';
+// import Sort from './Sort';
 
 
-export default function ShopProducts({product, fav}){
+export default function ShopProducts({product, fullProduct, viewQuick}){
     
 
     // Sort by 
     const [sortBy, setSortBy] = useState(product);
-
-    // Quickview 
-    const [fullProduct, setFullProduct] = useState([])
 
 
     // Pagination 
@@ -23,45 +21,35 @@ export default function ShopProducts({product, fav}){
     const records = sortBy.slice(firstIndex, lastIndex);
     const npage = Math.ceil(sortBy.length / recordsPerPage);
     const numbers = [...Array(npage + 1).keys()].slice(1);
-
-   
-
     
-    function viewQuick(prod){
-        setFullProduct(prod)
-    }
 
     // Sorting
-    let finalSort;
-    function SortItNow(e){
-        const sarees = document.getElementById("sarees").value;
-        if(sarees === 'price-low-high'){
-            finalSort = sortBy.sort((a,b)=> a.price - b.price)
-            setSortBy(finalSort)
-            console.log('sort changing low to high');
-        }
-        if(sarees === 'price-high-low'){
-            finalSort = sortBy.sort((a,b)=> b.price - a.price)
-            setSortBy(finalSort)
-            console.log('sort changing high to low');
-        }
-        if(sarees === 'name-a-z'){
-            finalSort = sortBy.sort((a, b) => (a.productName > b.productName) ? 1: -1)
-            setSortBy(finalSort)
-            console.log('sort changing name a to z');
-        }
-        if(sarees === 'name-z-a'){
-            finalSort = sortBy.sort((a, b) => (a.productName < b.productName) ? 1: -1)
-            setSortBy(finalSort)
-            console.log('sort changing name z to a');
-        }
-        e.preventDefault();
-    }
+    // let finalSort;
+    // function SortItNow(){
+    //     const sarees = document.getElementById("sarees").value;
+    //     if(sarees === 'price-low-high'){
+    //         finalSort = sortBy.sort((a,b)=> a.price - b.price)
+    //         setSortBy(finalSort)
+    //         console.log('sort changing low to high');
+    //     }else if(sarees === 'price-high-low'){
+    //         finalSort = sortBy.sort((a,b)=> b.price - a.price)
+    //         setSortBy(finalSort)
+    //         console.log('sort changing high to low');
+    //     }else if(sarees === 'name-a-z'){
+    //         finalSort = sortBy.sort((a, b) => (a.productName > b.productName) ? 1: -1)
+    //         setSortBy(finalSort)
+    //         console.log('sort changing name a to z');
+    //     }else if(sarees === 'name-z-a'){
+    //         finalSort = sortBy.sort((a, b) => (a.productName < b.productName) ? 1: -1)
+    //         setSortBy(finalSort)
+    //         console.log('sort changing name z to a');
+    //     }
+    // }
 
     // For add to bag 
     const url = process.env.REACT_APP_TEST_LINK
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUzMzMwNDgsImV4cCI6MTY4NTM3NjI0OH0.6cHoebb_2iJWC_BSDkIxYgwEeACZnmrGZ6AaYg6qj9U';
-    const userId = '646b52a75bba83d29383a25a'
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
   
     const authAxios = axios.create({
         baseURL : url,
@@ -76,10 +64,23 @@ export default function ShopProducts({product, fav}){
         try {
             const response = await authAxios.post(`/addCart/${userId}`, `productId=${data._id}`)
             // console.log(response);
-            alert('Product added to Bag successfully')
+            alert('Product added to bag')
             
         } catch (error) {
-            alert('Product already in Bag')
+            alert(error.response.data.message)
+            console.log(error.response.data.message);
+        }
+    }
+
+    // Add to favourites 
+    const addToFavourite = async (data) => {
+        // console.log(data._id);
+        try {
+            const response = await authAxios.post(`/addFavorite/${userId}`, `productId=${data._id}`)
+            alert('Product added to Favourites')
+            
+        } catch (error) {
+            alert(error.response.data.message)
             console.log(error.response.data.message);
         }
     }
@@ -88,17 +89,14 @@ export default function ShopProducts({product, fav}){
     
     return(
         <>
-            {
-                fav === 0 ?
-                <></>
-                :
-                <div className="sorting d-flex justify-content-between">
-                    <div className="showing-result pb-2">
-                        Showing {firstIndex+1} to {lastIndex<sortBy.length ? lastIndex : sortBy.length} products out of {sortBy.length} products
-                    </div>
-                    <div className="sort">
-                        <form>
-                        <label htmlFor='sortby'>Sort by&nbsp;</label>
+            
+            <div className="sorting d-md-flex justify-content-between">
+                <div className="showing-result pb-2">
+                    Showing {firstIndex+1} to {lastIndex<sortBy.length ? lastIndex : sortBy.length} products out of {sortBy.length} products
+                </div>
+                {/* <div className="sort">
+                    <form>
+                    <label htmlFor='sortby'>Sort by&nbsp;</label>
                         <select name="sarees" id="sarees" onChange={SortItNow}>
                             <option value="selected" selected disabled>Select Sort</option>
                             <option value="price-low-high">Price (Low to High)</option>
@@ -106,12 +104,10 @@ export default function ShopProducts({product, fav}){
                             <option value="name-a-z">Name (A to Z)</option>
                             <option value="name-z-a">Name (Z to A)</option>
                         </select>
-                        <br />
-                        {/* <input type="submit" value="Submit" /> */}
-                        </form>
-                    </div>
-                </div>
-            }
+                    </form>
+                </div> */}
+            </div>
+            
 
             <div className='all-products border rounded'>
                 
@@ -126,7 +122,7 @@ export default function ShopProducts({product, fav}){
                                     <a href={prodRef}>
                                         <img src={a.productImage[0]} alt="Latest Product" />
                                     </a>
-                                    <button className="card-btn">
+                                    <button className="card-btn" onClick={()=>addToFavourite(a)}>
                                         <SuitHeart />
                                     </button>
                                     <button type="button" className=" quick-view" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onClick={()=>viewQuick(a)} >Quick view</button>
@@ -188,7 +184,7 @@ export default function ShopProducts({product, fav}){
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <div className='fs-2 fw-bold'>{fullProduct.productName}</div>
+                            {/* <div className='fs-2 fw-bold'>{fullProduct.productName}</div> */}
                             <button
                                 type="button"
                                 className="btn-close"

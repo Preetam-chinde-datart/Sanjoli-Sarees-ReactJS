@@ -5,7 +5,7 @@ import BagProducts from '../components/BagProducts';
 
 
 
-export default function Bag(){
+export default function Bag({setGetFinalPrice}){
 
     function cartReducer(state, action){
         switch(action.type){
@@ -18,10 +18,14 @@ export default function Bag(){
 
     //Cart Reducer 
     const [cartProducts, dispatch] = useReducer(cartReducer, null)
+    // To Check Out 
+    const [totalProducts, setTotalProducts] = useState({})
+
+    
 
     const url = process.env.REACT_APP_TEST_LINK;
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUzMzMwNDgsImV4cCI6MTY4NTM3NjI0OH0.6cHoebb_2iJWC_BSDkIxYgwEeACZnmrGZ6AaYg6qj9U';
-    const userId = '646b52a75bba83d29383a25a'
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
 
     const authAxios = axios.create({
         baseURL : url,
@@ -30,18 +34,30 @@ export default function Bag(){
         },
     })
 
+    
     useEffect(() => {
         authAxios.get(`/getCart/${userId}`)
             .then(res => {
                 dispatch({type : 'LOAD', payload : res.data.data})
-                // console.log(res.data.data);
             })
             .catch(error => {
                 console.log(error);
             });
     }, []);
 
-    
+    useEffect(()=>{
+        let array = []
+        let obj = {}
+        if(cartProducts){
+            cartProducts.items.map((data, i)=>{
+                return(
+                    array.push(data.productId._id),
+                    obj[array[i]] = '1'
+                )
+            })
+        }
+        setTotalProducts({...obj})
+    },[cartProducts])
 
 
     // add to favoutites
@@ -49,19 +65,20 @@ export default function Bag(){
         // console.log(data);
         try {
             await authAxios.post(`/addFavorite/${userId}`, `productId=${data}`)
-            
+            alert('Product moved to Favourites')
+            try {
+                await authAxios.put(`/updateCart/${userId}`, `productId=${data}`)
+                // alert('Product moved to Favourites successfully')
+                window.location.reload() 
+            } catch (error) {
+                alert(error.response.data.message)
+                console.log(error.response.data.message);
+            }
         } catch (error) {
-            // alert('Product add to favourite error')
+            alert(error.response.data.message)
             console.log(error.response);
         }
-        try {
-            await authAxios.put(`/updateCart/${userId}`, `productId=${data}`)
-            alert('Product moved to Favourites successfully')
-            window.location.reload() 
-        } catch (error) {
-            alert('Product removal error after adding to favourites')
-            console.log(error.response);
-        }
+        
         
     }
 
@@ -70,28 +87,38 @@ export default function Bag(){
         // console.log(data);
         try {
 
-            await authAxios.put(`/updateCart/${userId}`, `productId=${data}`)
-            alert('Product Removed from Bag successfully')
+            const response = await authAxios.put(`/updateCart/${userId}`, `productId=${data}`)
+            alert('Product removed from bag')
+            console.log(response);
             window.location.reload()
             
             
         } catch (error) {
-            alert('Product removal error')
+            alert(error.response.data.message)
             console.log(error.response);
         }
     }
 
     // summary 
-    const [subTotal, setSubTotal] = useState(1)
-
+    const [subTotal, setSubTotal] = useState(0)
     let finalTotal = 0;
     const getSubTotal = (data)=>{
         finalTotal += data
-        // data += data
-        // console.log(finalTotal/2);
         setSubTotal(finalTotal/2)
     }
+
     
+
+    // Send data to checkout 
+    let checkOutTotal;
+    // let valueRef;
+    const checkOut = (number, id) =>{
+        setTotalProducts({...totalProducts, [id] : `${number}`})
+    }
+    
+    // const login = () => {
+    //     console.log(totalProducts);
+    // }
     
 
 
@@ -99,6 +126,10 @@ export default function Bag(){
     return(
         <>
             <section className='bags'>
+            {
+                    cartProducts
+                    ?
+                    <>
                 {/* Page Heading  */}
                 <div className='container mt-3'>
                     <a href='/' className='backlink'>&lt; Back</a>
@@ -107,14 +138,12 @@ export default function Bag(){
                     </div>
                 </div>
 
-                {
-                    cartProducts
-                    ?
+                
                     <div className="container d-flex wrap-flex in-bag">
                         <div className="col-md-9 product py-2">
                             <div className="row">
                                 {/* Repeat  */}
-                                <BagProducts cartProducts={cartProducts} addToFavourites={addToFavourites} removeFromCart={removeFromCart} getSubTotal={getSubTotal} />
+                                <BagProducts cartProducts={cartProducts} addToFavourites={addToFavourites} removeFromCart={removeFromCart} getSubTotal={getSubTotal} checkOut={checkOut} />
                             </div>
                         </div>
                         <div className="col-md-3 px-1 total-price">
@@ -132,22 +161,25 @@ export default function Bag(){
                                     <p>Tax</p>
                                     <p className='tax'>₹150</p>
                                 </div>
+                                {/* <button onClick={login}  className='btn btn-primary'>Click me</button> */}
                                 <div className="final-bill">
                                     <div className="final-total d-flex justify-content-between">
                                         <h5 className='fw-bold'>Total</h5>
-                                        <h5 className='fw-bold final-total'>₹{subTotal+270}</h5>
+                                        <h5 className='fw-bold final-total'>₹{checkOutTotal = subTotal + 270}</h5>
                                     </div>
-                                    <a href="/"><button className="btn btn-primary">Checkout</button></a>
+                                    
+                                    <a href={`/checkout?valueRef=${checkOutTotal}`}><button className="btn btn-primary">Checkout</button></a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </>
                     :
                     <></>
                 }
                 
                 
-
+               
             </section>
         </>
     )

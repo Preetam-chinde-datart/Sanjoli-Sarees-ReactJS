@@ -1,7 +1,4 @@
 /* -------------------- Product Details -------------------- */
-.product-details svg {
-    vertical-align: -0.15em !important;
-}
 p.small-text {
     font-size: .7rem;
 }
@@ -29,6 +26,7 @@ p.small-text {
 }
 .product-review svg{
     fill: var(--green);
+    vertical-align: -0.15em !important;
 }
 
 

@@ -1,0 +1,11 @@
+.logout-section{
+    margin: 10rem 15rem;
+    padding: 1rem 3rem;
+}
+.logout .cancel{
+    text-align: end;
+    cursor: pointer;
+}
+.logout-section .after-cancel {
+    padding-bottom: 1rem;
+}

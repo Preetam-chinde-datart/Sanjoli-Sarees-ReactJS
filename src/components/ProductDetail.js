@@ -1,3 +1,4 @@
+import axios from 'axios';
 import './ProductDetail.css'
 import { SuitHeart } from 'react-bootstrap-icons'
 import { GoStar } from 'react-icons/go'
@@ -11,23 +12,44 @@ export default function ProductDetail({wholeProd}){
     }
     // console.log('wholeproduct ', wholeProd);
 
+    
 
-    // switch images 
-    let mainImage = document.getElementById('main-img')
-    function changeImage(data){
-        if(data === 0){
-            mainImage.src = wholeProd.productImage[0];
-        }
-        if(data === 1){
-            mainImage.src = wholeProd.productImage[1];
-        }
-        if(data === 2){
-            mainImage.src = wholeProd.productImage[2];
-        }
-        if(data === 3){
-            mainImage.src = wholeProd.productImage[3];
-        }
+    // For add to bag and favourites
+    const url = process.env.REACT_APP_TEST_LINK
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+  
+    const authAxios = axios.create({
+        baseURL : url,
+        headers : {
+        'auth-jwt' : token,
+        },
+    })
 
+    const addToBag = async (data) => {
+        // console.log(data._id);
+        try {
+            await authAxios.post(`/addCart/${userId}`, `productId=${data._id}`)
+            // console.log(response);
+            alert('Product added to Bag')
+            
+        } catch (error) {
+            alert('Product already in Bag')
+            console.log(error.response.data.message);
+        }
+    }
+
+    // Add to favourites 
+    const addToFavourite = async (data) => {
+        // console.log(data._id);
+        try {
+            await authAxios.post(`/addFavorite/${userId}`, `productId=${data._id}`)
+            alert('Product added to Favourites')
+            
+        } catch (error) {
+            alert('Product already in Favourites')
+            console.log(error.response.data.message);
+        }
     }
     
     return (
@@ -38,30 +60,18 @@ export default function ProductDetail({wholeProd}){
             <section className="product-details mb-4">
                 <div className="container d-md-flex mt-4">
                 <div id='small-images' className="col-md-2 sub-products px-5">
-                    {wholeProd.productImage[0] ? 
-                        <img id="image-option-1" src={wholeProd.productImage[0]} alt="Product" className="image-option image-option-1" width="100%" onClick={(e)=>{changeImage(0); e.preventDefault()}} />
-                        :
-                        <span></span>
-                    }
-                    <br />
-                    {wholeProd.productImage[1] ? 
-                        <img id="image-option-2" src={wholeProd.productImage[1]} alt="Product" className="image-option image-option-2" width="100%" onClick={(e)=>{changeImage(1); e.preventDefault()}} />
-                        :
-                        <span></span>
-                    }
-                    <br />
-                    {wholeProd.productImage[2] ? 
-                        <img id="image-option-3" src={wholeProd.productImage[2]} alt="Product" className="image-option image-option-3" width="100%" onClick={(e)=>{changeImage(2); e.preventDefault()}} />
-                        :
-                        <span></span>
-                    }
-                    <br />
-                    {wholeProd.productImage[3] ? 
-                        <img id="image-option-4" src={wholeProd.productImage[3]} alt="Product" className="image-option image-option-4" width="100%" onClick={(e)=>{changeImage(3); e.preventDefault()}} />
-                        :
-                        <span></span>
-                    }
-                    <br />
+                        {
+                            wholeProd.productImage.map((data,i)=>{
+                                // console.log(i);
+                                return(
+                                    <>
+                                        <img id={`image-option-${i+1}`} src={data} alt="Product" className={`image-option image-option-${i+1}`} width="100%" onClick={(e)=>{document.getElementById('main-img').src = data; e.preventDefault()}} />
+                                        <br />
+                                    </>
+                                )
+                            })
+                            
+                        }
                 </div>
                 <div className="col-md-4 main-product">
                     <div className="main-img-container">
@@ -81,7 +91,8 @@ export default function ProductDetail({wholeProd}){
                         <span id="product-rating" className="color-light product-rating"> | 2.3k Ratings</span>
                     </p>
 
-                    {wholeProd.discountedPrice ? 
+                    {
+                        wholeProd.discountedPrice ? 
                         <div>
                             <span id="price" className="price" >Rs. {wholeProd.price} </span>
                             <span id="discountedPrice" className="discountedPrice text-green" > Rs. {wholeProd.discountedPrice} </span>
@@ -93,9 +104,9 @@ export default function ProductDetail({wholeProd}){
                     }
 
                     <p className="text-tax small-text">Tax included</p>
-                    <button href="#" className="btn btn-primary">Add to Bag</button>
+                    <button href="#" className="btn btn-primary" onClick={()=>addToBag(wholeProd)}>Add to Bag</button>
                     &nbsp;&nbsp;
-                    <button href="#" className="btn btn-secondary"><SuitHeart /> Favourites</button>
+                    <button href="#" className="btn btn-secondary" onClick={()=>addToFavourite(wholeProd)}><SuitHeart /> Favourites</button>
                     <div className="product-description pt-4">
                     <h4>Product details</h4>
                     <hr />

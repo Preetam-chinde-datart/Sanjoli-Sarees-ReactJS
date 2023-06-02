@@ -13,10 +13,8 @@ export default function FavouriteProducts({product}){
 
     // For add to bag 
     const url = process.env.REACT_APP_TEST_LINK
-    // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUzMzMwNDgsImV4cCI6MTY4NTM3NjI0OH0.6cHoebb_2iJWC_BSDkIxYgwEeACZnmrGZ6AaYg6qj9U';
-    localStorage.setItem("token",'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUzMzMwNDgsImV4cCI6MTY4NTM3NjI0OH0.6cHoebb_2iJWC_BSDkIxYgwEeACZnmrGZ6AaYg6qj9U');
     const token = localStorage.getItem('token');
-    const userId = '646b52a75bba83d29383a25a'
+    const userId = localStorage.getItem('userId');
   
     const authAxios = axios.create({
         baseURL : url,
@@ -49,25 +47,35 @@ export default function FavouriteProducts({product}){
         try {
             const response = await authAxios.post(`/addCart/${userId}`, `productId=${data._id}`)
             // console.log(response);
-            alert('Product added to Bag successfully')
+            alert('Product moved to bag')
+            try {
+                // const json = JSON.parse({"productId" : data._id})
+                await authAxios.delete(`/removeFavorite/${userId}`,{data:{productId : data._id}})
+                window.location.reload()
+                
+            } catch (error) {
+                // alert('Favourites removal error')
+                console.log(error.response);
+            }
             
         } catch (error) {
-            alert('Product already in Bag')
+            alert(error.response.data.message)
             console.log(error.response.data.message);
         }
+        
     }
 
     // Remove from favourites 
     const removeFromFavourite = async (data) => {
-        console.log('data id ',data._id);
         try {
             // const json = JSON.parse({"productId" : data._id})
-            const response = await authAxios.delete(`/removeFavorite/${userId}`,{data:{productId : data._id}})
-            console.log('fav response',response);
-            alert('Product removed from Favourites successfully')
+            const response =  await authAxios.delete(`/removeFavorite/${userId}`,{data:{productId : data._id}})
+            alert('Product removed from favouirtes')
+            console.log(response);
+            window.location.reload()
             
         } catch (error) {
-            // alert('Favourites removal error')
+            alert(error.response.data.message)
             console.log(error.response);
         }
     }
@@ -111,7 +119,7 @@ export default function FavouriteProducts({product}){
                                     }
 
                                     {/* <br /> */}
-                                    <button id='add-to-bag' onClick={(e)=>{addToBag(a.productId);e.preventDefault();}}>Add to Bag</button>
+                                    <button id='add-to-bag' onClick={(e)=>{addToBag(a.productId);e.preventDefault();}}>Move to Bag</button>
                                 </div>
                             </div>
                             
@@ -148,7 +156,7 @@ export default function FavouriteProducts({product}){
 
 
             {/* Model Quickview */}
-            <div className="modal fade" id="exampleModal" tabIndex={-1}  aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade quick-view" id="exampleModal" tabIndex={-1}  aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">

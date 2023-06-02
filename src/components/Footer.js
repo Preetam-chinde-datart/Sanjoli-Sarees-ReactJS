@@ -37,13 +37,13 @@ export default function Footer(){
                     <h5>Policies</h5>
                     <ul>
                         <li>
-                            <a href="#">Privacy policy</a>
+                            <a href="/privacy-policy">Privacy policy</a>
                         </li>
                         <li>
-                            <a href="#">Refund and Return Policy</a>
+                            <a href="/refund-and-return">Refund and Return Policy</a>
                         </li>
                         <li>
-                            <a href="#">Terms and Conditions</a>
+                            <a href="/terms-and-conditions">Terms and Conditions</a>
                         </li>
                     </ul>
                 </div>

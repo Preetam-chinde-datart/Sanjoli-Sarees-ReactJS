@@ -4,39 +4,21 @@ import { useState } from "react"
 
 
 
-export default function SelectQuantity({id, currentPrice, getSubTotal}){
+export default function SelectQuantity({id, currentPrice, getSubTotal, checkOut }){
 
     // Use state 
     const [productQuantity, setProductQuantity] = useState(1)
     
+    
+    
     // Quantity 
     function selectTotalProducts(data){
         let selectedAmount = document.getElementById(data).value
-        console.log(productQuantity)
-        
-        if(selectedAmount == 2){
-            setProductQuantity(2)
-        }else if(selectedAmount == 3){
-            setProductQuantity(3)
-        }else if(selectedAmount == 4){
-            setProductQuantity(4)
-        }else if(selectedAmount == 5){
-            setProductQuantity(5)
-        }else if(selectedAmount == 6){
-            setProductQuantity(6)
-        }else if(selectedAmount == 7){
-            setProductQuantity(7)
-        }else if(selectedAmount == 8){
-            setProductQuantity(8)
-        }else if(selectedAmount == 9){
-            setProductQuantity(9)
-        }else if(selectedAmount == 10){
-            setProductQuantity(10)
-        }else{
-            setProductQuantity(1)
-            console.log('default');
-        }
-        
+        // console.log(data, selectedAmount)
+        setProductQuantity(selectedAmount)
+        // setFinalQuantity(selectedAmount)
+        // setProductID(data)
+        checkOut(selectedAmount, data)
     }
     
 

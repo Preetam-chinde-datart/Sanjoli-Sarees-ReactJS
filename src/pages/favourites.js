@@ -12,8 +12,9 @@ export default function Favourites(){
     
 
     
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDZiNTJhNzViYmE4M2QyOTM4M2EyNWEiLCJpYXQiOjE2ODUzMzMwNDgsImV4cCI6MTY4NTM3NjI0OH0.6cHoebb_2iJWC_BSDkIxYgwEeACZnmrGZ6AaYg6qj9U';
-    const userId = '646b52a75bba83d29383a25a'
+    
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
   
     const authAxios = axios.create({
         baseURL : url,
@@ -38,19 +39,25 @@ export default function Favourites(){
     return(
         <>
         <section className="favourite">
-            {/* Heading and Back  */}
-            <div className='container mt-3'>
-                <a href='/' className='backlink'><BiChevronLeft />Back</a>
-                <div className='page-heading mb-3 pb-3'>
-                    <h2>Favourites</h2>
+            {
+                product ?
+                <>
+                <div className='container mt-3'>
+                    <a href='/' className='backlink'><BiChevronLeft />Back</a>
+                    <div className='page-heading mb-3 pb-3'>
+                        <h2>Favourites</h2>
+                    </div>
                 </div>
-            </div>
 
-            <div className="container shop-products fav-products">
-                <div className="col-md-10 mx-auto">
-                    <FavouriteProducts product={product}/>
+                <div className="container shop-products fav-products">
+                    <div className="col-md-10 mx-auto">
+                        <FavouriteProducts product={product}/>
+                    </div>
                 </div>
-            </div>
+                </>
+                :
+                <></>
+            }
         </section>
         </>
     )

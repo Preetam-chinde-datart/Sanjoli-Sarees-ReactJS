@@ -35,21 +35,19 @@ export default function Shop(){
         });
     },[])
 
-    
-    
-    
-    
-    // useEffect(()=>{
-    //     if(sortBy !== product){
-    //         setProduct(sortBy)
-    //         setSortBy(sortBy)
 
-    //     }
-    // },[sortBy])
+
+
+    // Quickview 
+    const [fullProduct, setFullProduct] = useState([])
+
+    function viewQuick(prod){
+        setFullProduct(prod)
+    }
     
     
 
-    // Fro price range 
+    // For price range 
     function getRangeData(){
         var get = document.getElementById('get-range').value;
         document.getElementById("put-range-data").innerHTML = `₹${get}`;
@@ -79,8 +77,8 @@ export default function Shop(){
                         {/* Filter section */}
                         <div className="col-md-2 pe-2">
                             <div className="filters">
-                                <div className="filter-heading fw-bold mb-md-3 fs-4">Filters</div>
-                                <div className="price-range">
+                                <div className="filter-heading fw-bold mb-md-3 fs-4">Filter</div>
+                                {/* <div className="price-range">
                                     <form>
                                         <label htmlFor="Price range" className='text-decoration-underline fs-5 ps-2 mb-2'>Price Range</label><br />
                                         <input type="range" min={0} max={3500} step={100} id='get-range' onChange={getRangeData} className='w-100' />
@@ -88,12 +86,11 @@ export default function Shop(){
                                             <p className="low">0</p>
                                             <p id='put-range-data'>Select</p>
                                         </div>
-                                        {/*  */}
                                     </form>
-                                </div>
+                                </div> */}
                                 {/* Filter by category  */}
                                 <div className="category mt-md-2">
-                                    <div className="category-heading fs-5 ps-2 mb-3">By Category</div>
+                                    <div className="category-heading fs-5 ps-2 mb-3 text-decoration-underline">By Category</div>
                                     <ul>
                                         <li className='mb-2'><a href={`/shop?productCategory=Traditional Sarees`}>Traditional Wear</a></li>
                                         <li className='mb-2'><a href={`/shop?productCategory=Daily%20Sarees`}>Daily Wear</a></li>
@@ -119,7 +116,7 @@ export default function Shop(){
                                     <div className="shop-products my-2">
                                         <div className="row">
                                             <div className="container">
-                                                <ShopProducts product={product}/>
+                                                <ShopProducts product={product} fullProduct={fullProduct} viewQuick={viewQuick} />
                                             </div>
                                         </div>
                                     </div>
