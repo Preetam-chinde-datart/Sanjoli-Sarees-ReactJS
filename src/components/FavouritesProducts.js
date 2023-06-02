@@ -45,9 +45,9 @@ export default function FavouriteProducts({product}){
     const addToBag = async (data) => {
         // console.log(data._id);
         try {
-            await authAxios.post(`/addCart/${userId}`, `productId=${data._id}`)
+            const response = await authAxios.post(`/addCart/${userId}`, `productId=${data._id}`)
             // console.log(response);
-            alert('Product moved to Bag')
+            alert('Product moved to bag')
             try {
                 // const json = JSON.parse({"productId" : data._id})
                 await authAxios.delete(`/removeFavorite/${userId}`,{data:{productId : data._id}})
@@ -59,7 +59,7 @@ export default function FavouriteProducts({product}){
             }
             
         } catch (error) {
-            alert('Product already in Bag')
+            alert(error.response.data.message)
             console.log(error.response.data.message);
         }
         
@@ -69,12 +69,13 @@ export default function FavouriteProducts({product}){
     const removeFromFavourite = async (data) => {
         try {
             // const json = JSON.parse({"productId" : data._id})
-            await authAxios.delete(`/removeFavorite/${userId}`,{data:{productId : data._id}})
-            alert('Product removed from Favourites')
+            const response =  await authAxios.delete(`/removeFavorite/${userId}`,{data:{productId : data._id}})
+            alert('Product removed from favouirtes')
+            console.log(response);
             window.location.reload()
             
         } catch (error) {
-            alert('Favourites removal error')
+            alert(error.response.data.message)
             console.log(error.response);
         }
     }

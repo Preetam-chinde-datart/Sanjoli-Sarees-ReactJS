@@ -71,11 +71,11 @@ export default function Bag({setGetFinalPrice}){
                 // alert('Product moved to Favourites successfully')
                 window.location.reload() 
             } catch (error) {
-                alert('Product removal error after adding to favourites')
-                console.log(error.response);
+                alert(error.response.data.message)
+                console.log(error.response.data.message);
             }
         } catch (error) {
-            alert('Product already in favourites')
+            alert(error.response.data.message)
             console.log(error.response);
         }
         
@@ -87,13 +87,14 @@ export default function Bag({setGetFinalPrice}){
         // console.log(data);
         try {
 
-            await authAxios.put(`/updateCart/${userId}`, `productId=${data}`)
-            alert('Product Removed from Bag successfully')
+            const response = await authAxios.put(`/updateCart/${userId}`, `productId=${data}`)
+            alert('Product removed from bag')
+            console.log(response);
             window.location.reload()
             
             
         } catch (error) {
-            alert('Product removal error')
+            alert(error.response.data.message)
             console.log(error.response);
         }
     }
@@ -125,6 +126,10 @@ export default function Bag({setGetFinalPrice}){
     return(
         <>
             <section className='bags'>
+            {
+                    cartProducts
+                    ?
+                    <>
                 {/* Page Heading  */}
                 <div className='container mt-3'>
                     <a href='/' className='backlink'>&lt; Back</a>
@@ -133,9 +138,7 @@ export default function Bag({setGetFinalPrice}){
                     </div>
                 </div>
 
-                {
-                    cartProducts
-                    ?
+                
                     <div className="container d-flex wrap-flex in-bag">
                         <div className="col-md-9 product py-2">
                             <div className="row">
@@ -170,6 +173,7 @@ export default function Bag({setGetFinalPrice}){
                             </div>
                         </div>
                     </div>
+                    </>
                     :
                     <></>
                 }

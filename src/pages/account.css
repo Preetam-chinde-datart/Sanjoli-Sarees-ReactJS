@@ -198,7 +198,7 @@ hr{
     padding: 1rem;
     height: 500px;
 }
-.profile a button:hover, .order a button:hover, .logout>button:hover{
+.profile a button:hover, .order a button:hover, .logout a button:hover{
     color: #519D42;
 
 }
@@ -228,4 +228,11 @@ hr{
 
 input#new-pass, input#old-pass, input#conf-pass {
     padding: 5px 10px;
+}
+
+.address-info .address-container button{
+    color: var(--green) !important;
+}
+.address-info .address-container button.quick-view{
+    color: black !important;
 }

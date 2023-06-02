@@ -22,6 +22,7 @@ function Profile() {
   // const [user, setUser] = useState(null);
   const [user, dispatch] = useReducer(userReducer, null)
   const [resetPassword, setResetPassword] = useState({})
+  // const [removeAdd, setRemoveAdd] = useState({})
 
   const url = process.env.REACT_APP_TEST_LINK;  
   const token = localStorage.getItem('token');
@@ -38,7 +39,7 @@ function Profile() {
     authAxios.get(`/getUser/${userId}`)
       .then(res => {
         dispatch({type : 'load', payload : res.data.data})
-        // console.log(res.data.data);
+        console.log(res.data.data);
       })
       .catch(error => {
         console.log(error);
@@ -54,20 +55,45 @@ function Profile() {
       // console.log(resetPassword);
       await authAxios.put(`/updateUser/${userId}`, resetPassword)
       alert('Password resetted successfully')
+      window.location.reload()
     } catch (error) {
+        alert('Password resetting error')
         console.log(error.response);
     }
   }
 
-  // const replaceValueFirstName = (event) => {
-  //   const fName = document.getElementById('f-name')
-  //   console.log('fName ', fName);
-  // }
-
-  // const replaceValuelastName = (event) => {
-  //   const lName = document.getElementById('l-name')
-  //   console.log('lName ', lName);
-  // }
+  const changePass = document.getElementById('toggle-password')
+  const togglePassword = () => {
+    let value = `${changePass.classList.value}`
+    if(value == 'container d-flex d-none'){
+      changePass.classList.remove('d-none')
+      changePass.classList.add('d-block')
+    }else if(value == 'container d-flex d-block'){
+      changePass.classList.remove('d-block')
+      changePass.classList.add('d-none')
+    }
+    // console.log('change pass ');
+  }
+  let whichAdd = '';
+  const removeAddress = async (data,id)=>{
+    try {
+      // console.log(newAddress);
+      
+      if(id == 0){
+        whichAdd = 'billing'
+      }else if(id == 1){
+        whichAdd = 'shipping'
+      }
+      const response = await authAxios.put(`/updateAddress/${userId}`, {removeAddress : {[whichAdd] : data}});  
+      alert('address Removed successfully')
+      console.log(response);
+      window.location.reload()
+    } catch (error) {
+      console.log(error.response.data.msg);
+      // alert('Address removal error')
+    }
+  }
+  
   
 
 
@@ -75,15 +101,17 @@ function Profile() {
   return (
     <>
       <section className="account-section">
+        {
+        user
+        ?
+        <>
         <div className='container mt-3'>
           <a href='/' className='backlink'>&lt; Back</a>
           <div className='page-heading mb-3 pb-3'>
             <h2>My Account</h2>
           </div>
         </div>
-      {
-        user
-        ?
+      
         <div className="container d-md-flex ">
           <div className="left-div">
             {/* vertical navigation */}
@@ -107,9 +135,11 @@ function Profile() {
                 </li>
                 <li className="logout">
                   <MdOutlineLogout />
-                  <button className="ver-nav">
-                    Logout
-                  </button>
+                  <a href="/logout">
+                    <button className="ver-nav">
+                      Logout
+                    </button>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -224,7 +254,7 @@ function Profile() {
               <hr />
               <div className="container d-flex">
                 {
-                  user.addresses.map((data, i)=>{
+                  user.addresses.billing.map((data, i)=>{
                     return(
                       <>
                         <div className="col-md-4 px-2">
@@ -233,8 +263,27 @@ function Profile() {
                             <p className='text-capitalize'>{data.street}, {data.city}, {data.pincode}. 
                             State: {data.state},  Country: {data.country} </p>
                             {/* <p>Phone: {data.contactNumber}</p> */}
-                            <a href="#edit">Edit |</a>
-                            <a href="#remove"> Remove </a>
+                            {/* <a href="#edit">Edit |</a> */}
+                            <button onClick={()=>{removeAddress(data,0)}}> Remove </button>
+                            {/* <a href="#set-default"> Set As Default</a> */}
+                          </div>
+                        </div>
+                      </>
+                    )
+                  })
+                }
+                {
+                  user.addresses.shipping.map((data, i)=>{
+                    return(
+                      <>
+                        <div className="col-md-4 px-2">
+                          <div className="address-container">
+                            <h5>{data.firstName} {data.lastName}</h5>
+                            <p className='text-capitalize'>{data.street}, {data.city}, {data.pincode}. 
+                            State: {data.state},  Country: {data.country} </p>
+                            {/* <p>Phone: {data.contactNumber}</p> */}
+                            {/* <a href="#edit">Edit |</a> */}
+                            <button onClick={()=>{removeAddress(data,1)}}> Remove </button>
                             {/* <a href="#set-default"> Set As Default</a> */}
                           </div>
                         </div>
@@ -248,7 +297,6 @@ function Profile() {
                   <button type="button" className=" quick-view" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
                     <FiPlus /> <br /> Add New Address
                   </button>
-                      
                   </div>
                 </div>
               </div>
@@ -260,13 +308,14 @@ function Profile() {
               </div> */}
             </div>
             <div className="password-info">
-              <div className="container">
-                <br />
-                <br />
-                <div className="h4">Security and Password</div>
+              <div className="container d-flex justify-content-between mt-5">
+                <div className="h4 mb-0">Security and Password</div>
+                <div className="">
+                  <button className='btn btn-primary' onClick={togglePassword}>Toggle Password Change</button>
+                </div>
               </div>
               <hr />
-              <div className="container d-flex">
+              <div className="container d-flex d-none" id='toggle-password'>
                 <div className="col-md-6">
                   <h5>Change Password</h5>
                 </div>
@@ -345,6 +394,7 @@ function Profile() {
 
 
         </div>
+        </>
       :
       <></>
       }

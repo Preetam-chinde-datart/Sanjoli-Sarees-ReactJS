@@ -13,7 +13,8 @@ import Bag from './pages/bag'
 import OrderHistory from './pages/Order-History'
 import OrderHistoryDetails from './pages/OrderHistoryDetails'
 import CheckOut from './pages/checkout1'
-import { useReducer, useState } from 'react';
+// import { useReducer, useState } from 'react';
+import Logout from './pages/logout';
 // import PrivacyPolicy from './pages/Privacypolicy'
 // import ReturnAndReturn from './pages/Legalpolicy'
 // import TermsAndConditions from './pages/Statuspolicy'
@@ -43,6 +44,7 @@ function App() {
         <Route path='/order-history' element={<OrderHistory />} />
         <Route path='/order-history-details' element={<OrderHistoryDetails />} />
         <Route path='/checkout' element={<CheckOut />} />
+        <Route path='/logout' element={<Logout />} />
 
 
         {/* <Route path='/privacy-policy' element={<PrivacyPolicy />} />

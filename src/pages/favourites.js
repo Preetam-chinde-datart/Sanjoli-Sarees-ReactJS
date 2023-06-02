@@ -39,19 +39,25 @@ export default function Favourites(){
     return(
         <>
         <section className="favourite">
-            {/* Heading and Back  */}
-            <div className='container mt-3'>
-                <a href='/' className='backlink'><BiChevronLeft />Back</a>
-                <div className='page-heading mb-3 pb-3'>
-                    <h2>Favourites</h2>
+            {
+                product ?
+                <>
+                <div className='container mt-3'>
+                    <a href='/' className='backlink'><BiChevronLeft />Back</a>
+                    <div className='page-heading mb-3 pb-3'>
+                        <h2>Favourites</h2>
+                    </div>
                 </div>
-            </div>
 
-            <div className="container shop-products fav-products">
-                <div className="col-md-10 mx-auto">
-                    <FavouriteProducts product={product}/>
+                <div className="container shop-products fav-products">
+                    <div className="col-md-10 mx-auto">
+                        <FavouriteProducts product={product}/>
+                    </div>
                 </div>
-            </div>
+                </>
+                :
+                <></>
+            }
         </section>
         </>
     )

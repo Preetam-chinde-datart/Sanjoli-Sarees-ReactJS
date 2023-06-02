@@ -75,9 +75,11 @@ function OrderHistory() {
                 </li>
                 <li className="logout">
                   <MdOutlineLogout />
-                  <button className="ver-nav">
-                    Logout
-                  </button>
+                  <a href="/logout">
+                    <button className="ver-nav">
+                      Logout
+                    </button>
+                  </a>
                 </li>
               </ul>
             </div>

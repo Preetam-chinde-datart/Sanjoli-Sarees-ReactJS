@@ -64,10 +64,10 @@ export default function ShopProducts({product, fullProduct, viewQuick}){
         try {
             const response = await authAxios.post(`/addCart/${userId}`, `productId=${data._id}`)
             // console.log(response);
-            alert('Product added to Bag successfully')
+            alert('Product added to bag')
             
         } catch (error) {
-            alert('Product already in Bag')
+            alert(error.response.data.message)
             console.log(error.response.data.message);
         }
     }
@@ -76,11 +76,11 @@ export default function ShopProducts({product, fullProduct, viewQuick}){
     const addToFavourite = async (data) => {
         // console.log(data._id);
         try {
-            await authAxios.post(`/addFavorite/${userId}`, `productId=${data._id}`)
+            const response = await authAxios.post(`/addFavorite/${userId}`, `productId=${data._id}`)
             alert('Product added to Favourites')
             
         } catch (error) {
-            alert('Product already in Favourites')
+            alert(error.response.data.message)
             console.log(error.response.data.message);
         }
     }

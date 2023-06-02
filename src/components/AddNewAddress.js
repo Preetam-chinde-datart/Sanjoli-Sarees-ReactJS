@@ -26,13 +26,13 @@ export function AddNewAddress(){
     const formSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(newAddress);
-            const response = await authAxios.put(`/updateAddress/${userId}`, {address : newAddress});  //{address : newAddress}
-            console.log(response.data);
+            // console.log(newAddress);
+            const response = await authAxios.put(`/updateAddress/${userId}`, {address : {shipping : newAddress}});  
+            alert('address added successfully')
             window.location.reload()
         } catch (error) {
             console.error(error.message);
-            // alert('Enter valid details')
+            alert('Enter valid details')
         }
     };
 
@@ -73,7 +73,7 @@ export function AddNewAddress(){
                     <input type="text" onChange={formChange} placeholder='Street address' name='street' className='mb-4 formStyle fullWidth' />
                     <input type="text" onChange={formChange} placeholder='Landmark' name='landmark' className='formStyle half-width'/>
                     <input type="tel" onChange={formChange} placeholder='Pincode' name='pincode' className='mb-4 formStyle half-width'/>
-                    <input type="text" placeholder='Additional Comments' name='comment' className='mb-4 formStyle fullWidth' />
+                    {/* <input type="text" placeholder='Additional Comments' name='comment' className='mb-4 formStyle fullWidth' /> */}
                     <button type='submit' className='submit ms-3 my-2' >Submit</button>
                 </form>
             </div>  

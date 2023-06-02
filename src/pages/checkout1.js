@@ -162,7 +162,7 @@ function Checkout () {
       </section>
 
      
-    <div className="container d-flex mt-5">
+    <div className="container d-flex mt-5 checkout1-section">
         <div className="col-md-9 billing-address">
               <section className='billing'>
               <h4>Add billing address</h4>

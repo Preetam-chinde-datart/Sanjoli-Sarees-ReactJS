@@ -67,15 +67,15 @@ export default function Products({prodCat}){
     
     // Add to bag
     const addToBag = async (data) => {
-        console.log(data._id);
+        // console.log(data._id);
         try {
-            await authAxios.post(`/addCart/${userId}`, `productId=${data._id}`)
-            // console.log(response);
-            alert('Product added to Bag')
+            const response = await authAxios.post(`/addCart/${userId}`, `productId=${data._id}`)
+            console.log(response);
+            alert('Product added to bag')
 
             
         } catch (error) {
-            alert('Product already in Bag')
+            alert(error.response.data.message)
             console.log(error.response.data.message);
         }
     }
@@ -84,11 +84,12 @@ export default function Products({prodCat}){
     const addToFavourite = async (data) => {
         // console.log(data._id);
         try {
-            await authAxios.post(`/addFavorite/${userId}`, `productId=${data._id}`)
-            alert('Product added to Favourites')
+            const response = await authAxios.post(`/addFavorite/${userId}`, `productId=${data._id}`)
+            console.log(response);
+            alert('Product added to bag')
             
         } catch (error) {
-            alert('Product already in Favourites')
+            alert(error.response.data.message)
             console.log(error.response.data.message);
         }
     }
