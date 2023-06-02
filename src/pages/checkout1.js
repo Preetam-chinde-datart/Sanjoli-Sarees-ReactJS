@@ -60,9 +60,9 @@ function Checkout () {
 
 
 
-  const formChange = (e) => {
-      setBillingAddress({ ...billingAddress, [e.target.name] : e.target.value });
-  }
+  // const formChange = (e) => {
+  //     setBillingAddress({ ...billingAddress, [e.target.name] : e.target.value });
+  // }
   const url = process.env.REACT_APP_TEST_LINK;  
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
@@ -77,22 +77,26 @@ function Checkout () {
 
   const formSubmit = async (e) => {
       // e.preventDefault();
+      console.log('inside submit');
       try {
-          const response = await authAxios.put(`/updateAddress/${userId}`,{address: {billingAddress:{billingAddress }}});
-          console.log(response.data);
+        console.log('undr 1st try');
+        console.log(billingAddress);
+          const response = await authAxios.put(`/updateAddress/${userId}`,{address: {billing : billingAddress}});
+          // console.log(response.data);
           console.log("Billing");
           // alert("Address added successfully")
-          console.log(response.data.status)
+         // console.log(response.data.status)
       } catch (error) {
           console.log(error);
           // alert('Enter valid details')
       }
       
       try{
-      const response = await authAxios.put(`/updateAddress/${userId}`,{address: {shippingAddress:{ shippingAddress}}} );
+      const response = await authAxios.put(`/updateAddress/${userId}`,{address: {shipping: shippingAddress}});
       console.log(response.data);
       console.log("Shipping");
-      // alert("Address added successfully")
+      console.log('undr 2st try');
+      alert("Address added successfully")
       console.log(response.data.status)
       // window.location.href='Payment'
       } 
@@ -120,6 +124,7 @@ function Checkout () {
 
   return (
     <>
+   
       
 
       <section id="progress-bar">
@@ -132,7 +137,7 @@ function Checkout () {
               alt=""
               className="blue-line"
             />
-            <p className="step"> </p>
+            <p className="step"> Step 1</p>
             <h6 className="header2">Billing Details</h6>
             <p className="progress2">In Progress</p>
           </div>
@@ -143,7 +148,7 @@ function Checkout () {
               alt=""
               className="grey-line"
             />
-            <p className="step">Step 3</p>
+            <p className="step">Step 2</p>
             <h6 className="header2">Select Payment method</h6>
             <p className="progress3">Pending</p>
           </div>
@@ -160,33 +165,43 @@ function Checkout () {
           </div>
         </div>
       </section>
+      <section>
+       {/* Page Heading  */}
+       <div className='container mt-3'>
+                    <a href='/' className='backlink'>&lt; Back</a>
+                    <div className='page-heading mb-3 pb-3'>
+                        <h2>Checkout</h2>
+                    </div>
+                </div>
+    </section>
 
      
-    <div className="container d-flex mt-5 checkout1-section">
+    <div className="container d-flex mt-5">
         <div className="col-md-9 billing-address">
               <section className='billing'>
-              <h4>Add billing address</h4>
+              <h4>Billing address</h4>
             <p>Please fill in your billing details where you want the order to be delivered.</p>
             <div className="checkoutadd-form mt-4">
                 <form onSubmit={formSubmit}>
-                    <input type="text"  value={billingAddress.firstName} onChange={handleBillingChange} placeholder='First Name' name='firstName' className='formStyle half-width'/>
-                    <input type="text"  value={billingAddress.lastName} onChange={handleBillingChange} placeholder='Last Name' name='lastName' className='mb-4 formStyle half-width'/>
-                    <input type="tel" max={10}  value={billingAddress.contactNumber} onChange={handleBillingChange} placeholder='Contact Number' name='contactNumber' className='mb-4 formStyle half-width'/><br />
-                    <input type="text" value={billingAddress.country} onChange={handleBillingChange}placeholder='Country/Region' name='country' className='mb-4 formStyle half-width'/><br />
+                    <input type="text"  value={billingAddress.firstName} onChange={handleBillingChange} placeholder='First Name' name='firstName' className='formStyle half-width' required/>
+                    <input type="text"  value={billingAddress.lastName} onChange={handleBillingChange} placeholder='Last Name' name='lastName' className='mb-4 formStyle half-width' required/>
+                    <input type="tel" max={10}  value={billingAddress.contactNumber} onChange={handleBillingChange} placeholder='Contact Number' name='contactNumber' className='mb-4 formStyle half-width' required/><br />
+                    <input type="text" value={billingAddress.country} onChange={handleBillingChange}placeholder='Country/Region' name='country' className='mb-4 formStyle half-width' required/><br />
+                    <input type="text" value={billingAddress.state}   onChange={handleBillingChange} placeholder='State' name='state' className='mb-4 formStyle half-width'required/>
                     {/* state dropdown */}
-                    <select id="state-select" className="state mb-4 formStyle half-width" value={billingAddress.state} onChange={handleBillingChange} placeholder="State">
+                    {/* <select id="state-select" className="state mb-4 formStyle half-width" value={billingAddress.state} onChange={handleBillingChange} placeholder="State">
                     <option value="">State</option>
                     {
                         states.map((state) => (
                             <option key={state} value={state}>{state}</option>
                         ))
                     }
-                    </select>
-                    <input type="text" value={billingAddress.city} onChange={handleBillingChange} placeholder='Town/City' name='city' className='formStyle half-width'/>
-                    <input type="text" value={billingAddress.street} onChange={handleBillingChange} placeholder='Street address' name='street' className='mb-4 formStyle fullWidth' />
-                    <input type="text"value={billingAddress.landmark} onChange={handleBillingChange} placeholder='Landmark' name='landmark' className='formStyle half-width'/>
-                    <input type="tel"value={billingAddress.pincode} onChange={handleBillingChange} placeholder='Pincode' name='pincode' className='mb-4 formStyle half-width'/>
-                    <input type="text"value={billingAddress.comment} onChange={handleBillingChange} placeholder='Additional Comments' name='comment' className='mb-4 formStyle fullWidth' />
+                    </select> */}
+                    <input type="text" value={billingAddress.city} onChange={handleBillingChange} placeholder='Town/City' name='city' className='formStyle half-width'required/>
+                    <input type="text" value={billingAddress.street} onChange={handleBillingChange} placeholder='Street address' name='street' className='mb-4 formStyle fullWidth' required/>
+                    <input type="text"value={billingAddress.landmark} onChange={handleBillingChange} placeholder='Landmark' name='landmark' className='formStyle half-width'required/>
+                    <input type="tel"value={billingAddress.pincode} onChange={handleBillingChange} placeholder='Pincode' name='pincode' className='mb-4 formStyle half-width'required/>
+                    
                     </form>
                     </div>
                     <div className='shipping-link'>
@@ -208,30 +223,31 @@ function Checkout () {
                          /> <label htmlFor='checkbox' className=''>Shipping  Address Is Same As Billing Address</label>
                         
                  </div>
-                  <h4>Add Shipping address</h4>
+                  <h4>Shipping address</h4>
             {/* <p>Please fill in your billing details where you want the order to be delivered.</p> */}
             {sameAsBilling ?
             <div className="checkoutadd-form mt-4">
          
             <form onSubmit={formSubmit}>
-                <input type="text"  value={sameAsBilling ? `${billingAddress.firstName}` : ''}  placeholder='First Name' name='firstName' className='formStyle half-width'/>
-                <input type="text" value={sameAsBilling ? `${billingAddress.lastName}` : ''}  placeholder='Last Name' name='lastName' className='mb-4 formStyle half-width'/>
-                <input type="tel" max={10}  value={sameAsBilling ? `${billingAddress.contactNumber}` : ''} placeholder='Contact Number' name='contactNumber' className='mb-4 formStyle half-width'/><br />
-                <input type="text" value={sameAsBilling ? `${billingAddress.country}` : ''}  placeholder='Country/Region' name='country' className='mb-4 formStyle half-width'/><br />
+                <input type="text"  value={sameAsBilling ? `${billingAddress.firstName}` : ''}  placeholder='First Name' name='firstName' className='formStyle half-width'required/>
+                <input type="text" value={sameAsBilling ? `${billingAddress.lastName}` : ''}  placeholder='Last Name' name='lastName' className='mb-4 formStyle half-width'required/>
+                <input type="tel" max={10}  value={sameAsBilling ? `${billingAddress.contactNumber}` : ''} placeholder='Contact Number' name='contactNumber' className='mb-4 formStyle half-width'required/><br />
+                <input type="text" value={sameAsBilling ? `${billingAddress.country}` : ''}  placeholder='Country/Region' name='country' className='mb-4 formStyle half-width'required/><br />
+                <input type="text" value={sameAsBilling ? `${billingAddress.state}` : ''}  placeholder='State' name='state' className='mb-4 formStyle half-width'required/>
                 {/* state dropdown */}
-                <select id="state-select" className="state mb-4 formStyle half-width" value={sameAsBilling ? `${billingAddress.state}` : ''} placeholder="State">
+                {/* <select id="state-select" className="state mb-4 formStyle half-width" value={sameAsBilling ? `${billingAddress.state}` : ''} placeholder="State">
                 <option value="">State</option>
                 {
                     states.map((state) => (
                         <option key={state} value={state}>{state}</option>
                     ))
                 }
-                </select>
-                <input type="text" value={sameAsBilling ? `${billingAddress.city}` : ''} placeholder='Town/City' name='city' className='formStyle half-width'/>
-                <input type="text" value={sameAsBilling ? `${billingAddress.street}` : ''} placeholder='Street address' name='street' className='mb-4 formStyle fullWidth' />
-                <input type="text" value={sameAsBilling ? `${billingAddress.landmark}` : ''} placeholder='Landmark' name='landmark' className='formStyle half-width'/>
-                <input type="tel" value={sameAsBilling ? `${billingAddress.pincode}` : ''} placeholder='Pincode' name='pincode' className='mb-4 formStyle half-width'/>
-                <input type="text" value={sameAsBilling ? `${billingAddress.comment}` : ''} placeholder='Additional Comments' name='comment' className='mb-4 formStyle fullWidth' />
+                </select> */}
+                <input type="text" value={sameAsBilling ? `${billingAddress.city}` : ''} placeholder='Town/City' name='city' className='formStyle half-width'required/>
+                <input type="text" value={sameAsBilling ? `${billingAddress.street}` : ''} placeholder='Street address' name='street' className='mb-4 formStyle fullWidth'required />
+                <input type="text" value={sameAsBilling ? `${billingAddress.landmark}` : ''} placeholder='Landmark' name='landmark' className='formStyle half-width'required/>
+                <input type="tel" value={sameAsBilling ? `${billingAddress.pincode}` : ''} placeholder='Pincode' name='pincode' className='mb-4 formStyle half-width'required/>
+         
                 {/* <button type='submit' className='submit ms-3 my-2' >Submit</button> */}
             </form>
       
@@ -242,24 +258,25 @@ function Checkout () {
         <div className="checkoutadd-form mt-4">
          
                 <form onSubmit={formSubmit}>
-                    <input type="text"    value={shippingAddress.firstName} onChange={(e)=>{handleShippingChange(e);}}   placeholder='First Name' name='firstName' className='formStyle half-width'/>
-                    <input type="text"   value={shippingAddress.lastName} onChange={(e)=>{handleShippingChange(e);}}   placeholder='Last Name' name='lastName' className='mb-4 formStyle half-width'/>
-                    <input type="tel" max={10}   value={shippingAddress.contactNumber} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Contact Number' name='contactNumber' className='mb-4 formStyle half-width'/><br />
-                    <input type="text"   value={shippingAddress.country} onChange={(e)=>{handleShippingChange(e);}}   placeholder='Country/Region' name='country' className='mb-4 formStyle half-width'/><br />
+                    <input type="text"    value={shippingAddress.firstName} onChange={(e)=>{handleShippingChange(e);}}   placeholder='First Name' name='firstName' className='formStyle half-width'required/>
+                    <input type="text"   value={shippingAddress.lastName} onChange={(e)=>{handleShippingChange(e);}}   placeholder='Last Name' name='lastName' className='mb-4 formStyle half-width'required/>
+                    <input type="tel" max={10}   value={shippingAddress.contactNumber} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Contact Number' name='contactNumber' className='mb-4 formStyle half-width'required/><br />
+                    <input type="text"   value={shippingAddress.country} onChange={(e)=>{handleShippingChange(e);}}   placeholder='Country/Region' name='country' className='mb-4 formStyle half-width'required/><br />
+                    <input type="text"  value={shippingAddress.state} onChange={(e)=>{handleShippingChange(e);}} placeholder='State' name='state' className='mb-4 formStyle half-width'required />
                     {/* state dropdown */}
-                    <select id="state-select" className="state mb-4 formStyle half-width"  value={shippingAddress.state} onChange={(e)=>{handleShippingChange(e);}}  placeholder="State">
+                    {/* <select id="state-select" className="state mb-4 formStyle half-width"  value={shippingAddress.state} onChange={(e)=>{handleShippingChange(e);}}  placeholder="State">
                     <option value="">State</option>
                     {
                         states.map((state) => (
                             <option key={state} value={state}>{state}</option>
                         ))
                     }
-                    </select>
-                    <input type="text"   value={shippingAddress.city} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Town/City' name='city' className='formStyle half-width'/>
-                    <input type="text"   value={shippingAddress.street} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Street address' name='street' className='mb-4 formStyle fullWidth' />
-                    <input type="text"   value={shippingAddress.landmark} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Landmark' name='landmark' className='formStyle half-width'/>
-                    <input type="tel"  value={shippingAddress.pincode} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Pincode' name='pincode' className='mb-4 formStyle half-width'/>
-                    <input type="text"   value={shippingAddress.comment} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Additional Comments' name='comment' className='mb-4 formStyle fullWidth' />
+                    </select> */}
+                    <input type="text"   value={shippingAddress.city} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Town/City' name='city' className='formStyle half-width'required/>
+                    <input type="text"   value={shippingAddress.street} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Street address' name='street' className='mb-4 formStyle fullWidth'required />
+                    <input type="text"   value={shippingAddress.landmark} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Landmark' name='landmark' className='formStyle half-width'required/>
+                    <input type="tel"  value={shippingAddress.pincode} onChange={(e)=>{handleShippingChange(e);}}  placeholder='Pincode' name='pincode' className='mb-4 formStyle half-width'required/>
+                  
                     {/* <button type='submit' className='submit ms-3 my-2' >Submit</button> */}
                 </form>
           
@@ -276,7 +293,7 @@ function Checkout () {
            <div className="col-md-3 order">
            <section id="order">
            <div className="summary p-3">
-                                <h3 className='mb-5'>Summary</h3>
+                                <h3 className='mb-5'>Your Order</h3>
                                 <div className="sub-total d-flex justify-content-between">
                                     <p>Subtotal</p>
                                     <p className='sub-total'>₹{finalPrice - 270}</p>
@@ -294,7 +311,7 @@ function Checkout () {
                                         <h5 className='fw-bold'>Total</h5>
                                         <h5 className='fw-bold final-total'>₹{finalPrice}</h5>
                                     </div>
-                              <button className=" checkout-btn " onClick={formSubmit}>Checkout</button>
+                            <a href={`/place-order?orderValue=${finalPrice}`}> <button className=" checkout-btn " onClick={formSubmit}>Place Order</button></a> 
                                 </div>
                             </div>
            
